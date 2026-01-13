@@ -1,0 +1,8 @@
+# Disable PHP execution in this folder
+<Files *.php>
+    Order Deny,Allow
+    Deny from all
+</Files>
+
+# Deny directory listing
+Options -Indexes
