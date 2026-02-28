@@ -1,8 +1,6 @@
 <?php
-session_start();
-if (!isset($_SESSION['admin_logged_in'])) {
-    exit('Unauthorized');
-}
+require_once '../middleware/auth.php';
+requireAdmin();
 include '../config/database.php';
 include 'logger.php';
 
@@ -49,9 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if (mysqli_query($conn, $query)) {
             $new_id = mysqli_insert_id($conn);
-            $admin = $_SESSION['admin_username'] ?? 'unknown';
+            $admin = getAdminUsername();
             log_action($conn, $admin, 'create', 'projects', $new_id, "judul: $judul");
-            header('Location: ../../private_admin/index.php?success=project_added&tab=project-section');
+            header('Location: ../../admin_panel_omeng_secret/index.php?success=project_added&tab=project-section');
         } else {
             echo "Gagal Simpan Database: " . mysqli_error($conn);
         }

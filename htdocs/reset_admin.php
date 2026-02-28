@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
                 </ul>
             </div>
             <div class="link">
-                <a href="private_admin/login.php" style="font-weight: bold; font-size: 1.1rem;">→ Pergi ke Login Admin</a>
+                <a href="admin_ctrl/login.php" style="font-weight: bold; font-size: 1.1rem;">→ Pergi ke Login Admin</a>
             </div>
         <?php elseif (isset($error)): ?>
             <div class="error">

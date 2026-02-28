@@ -1,7 +1,9 @@
 <?php
-// Login moved to private_admin for improved security
-header('Location: private_admin/login.php');
-exit;
+session_start();
+if (isset($_SESSION['admin_logged_in'])) {
+    header('Location: index.php');
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -9,17 +11,25 @@ exit;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Omeng Creations</title>
-    <link rel="icon" href="frontend/images/logo-omeng.png" type="image/png">
-    <link rel="stylesheet" href="frontend/css/main.css">
+    <link rel="icon" href="../frontend/images/logo-omeng.png" type="image/png">
+    <script src="../frontend/js/main.js" defer></script>
+    <link rel="stylesheet" href="../frontend/css/main.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: var(--color-primary-black);
             display: flex;
+            flex-direction: column;
+            margin: 0;
+        }
+        main {
+            flex: 1;
+            display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            min-height: calc(100vh - 120px);
+            padding: 40px 20px;
         }
         .login-card {
             background: var(--color-primary-pink);
@@ -77,16 +87,25 @@ exit;
     </style>
 </head>
 <body>
-    <div class="login-card">
+    <?php include '../frontend/includes/navbar.php'; ?>
+    <main>
+        <div class="login-card">
         <h2>Admin Login</h2>
+        <?php if (isset($_GET['logged_out'])): ?>
+            <div style="background: #27ae60; color: white; padding: 10px; border-radius: 8px; margin-bottom: 20px; font-size: 0.9rem;">
+                ✓ Logout berhasil. Sampai jumpa!
+            </div>
+        <?php endif; ?>
         <?php if (isset($_GET['error'])): ?>
             <div class="error-msg">Username atau Password salah!</div>
         <?php endif; ?>
-        <form action="backend/admin/login_handler.php" method="POST" class="login-form">
+        <form action="../backend/admin/login_handler.php" method="POST" class="login-form">
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit" class="btn-login">Masuk</button>
         </form>
-    </div>
+        </div>
+    </main>
+    <footer><div class="container"><p>&copy; 2025 Rahmad. All rights reserved.</p></div></footer>
 </body>
 </html>

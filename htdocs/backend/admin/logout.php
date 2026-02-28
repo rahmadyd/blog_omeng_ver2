@@ -1,8 +1,10 @@
 <?php
-session_start();
+require_once '../middleware/auth.php';
+
 session_unset();
 session_destroy();
-// After logout return user to public homepage
-header('Location: ../../index.php');
+
+// Redirect to login with confirmation
+header('Location: ../../private_admin_creations/login.php?logged_out=1');
 exit;
 ?>

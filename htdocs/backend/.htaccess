@@ -1,3 +1,23 @@
-# Mencegah akses langsung ke semua file di dalam folder ini
-Order Deny,Allow
-Deny from all
+# Izinkan akses agar proses login dan pengelolaan data bisa jalan
+<IfModule mod_authz_core.c>
+    Require all granted
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Order Allow,Deny
+    Allow from all
+</IfModule>
+
+# Keamanan: Mencegah orang melihat daftar isi folder
+Options -Indexes
+
+# Proteksi file konfigurasi
+<FilesMatch "^(config|middleware)">
+    Require all denied
+</FilesMatch>
+
+# Proteksi file PHP di folder admin (hanya izinkan akses via POST/GET dari aplikasi)
+<Directory "admin">
+    <FilesMatch "\.php$">
+        Require all granted
+    </FilesMatch>
+</Directory>

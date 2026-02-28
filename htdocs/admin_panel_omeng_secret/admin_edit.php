@@ -1,9 +1,6 @@
 <?php
-session_start();
-if (!isset($_SESSION['admin_logged_in'])) {
-    header('Location: login.php');
-    exit;
-}
+require_once '../backend/middleware/auth.php';
+requireAdmin();
 include '../backend/config/database.php';
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;

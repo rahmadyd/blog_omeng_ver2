@@ -1,8 +1,6 @@
 <?php
-session_start();
-if (!isset($_SESSION['admin_logged_in'])) {
-    exit('Unauthorized');
-}
+require_once '../middleware/auth.php';
+requireAdmin();
 include '../config/database.php';
 include 'logger.php';
 
@@ -56,11 +54,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $tab = ($type == 'shop') ? 'shop-section' : 'project-section';
     if (mysqli_query($conn, $query)) {
-        $admin = $_SESSION['admin_username'] ?? 'unknown';
+        $admin = getAdminUsername();
         $details = "judul:$judul, kategori:$kategori, tanggal:$tanggal";
         if ($update_image) $details .= ", gambar:$new_filename";
         log_action($conn, $admin, 'update', 'projects', $id, $details);
-        header("Location: ../../private_admin/index.php?success=updated&tab=$tab");
+        header("Location: ../../admin_panel_omeng_secret/index.php?success=updated&tab=$tab");
     } else {
         echo "Error: " . mysqli_error($conn);
     }

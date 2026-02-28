@@ -503,30 +503,36 @@ body.nav-is-sticky {
 }
 
 /* Improve contrast for about/QNA cards inside project-section */
-.project-header-about .about-content > div,
-.project-section .about-content > div {
+.project-header-about .about-content>div,
+.project-section .about-content>div {
   /* ensure text is dark on light card backgrounds */
   color: #222 !important;
 }
-.project-header-about .about-content > div p,
-.project-section .about-content > div p {
+
+.project-header-about .about-content>div p,
+.project-section .about-content>div p {
   color: #444 !important;
 }
-.project-header-about .about-content > div h4,
-.project-section .about-content > div h4 {
+
+.project-header-about .about-content>div h4,
+.project-section .about-content>div h4 {
   color: var(--color-accent) !important;
 }
 
 /* QNA cards: use site "item" (pink) tint instead of grey */
 .qna-card {
-  background: #000; /* black card background */
+  background: #000;
+  /* black card background */
   padding: 20px;
   border-radius: 12px;
-  color: #f2f2f2; /* light text for contrast */
+  color: #f2f2f2;
+  /* light text for contrast */
 }
+
 .qna-card p {
   color: #fff;
 }
+
 .qna-card h4 {
   color: var(--color-primary-pink);
   margin-bottom: 8px;
@@ -556,6 +562,79 @@ body.nav-is-sticky {
 }
 
 /*== EMPTY STATE */
+
+/*== RESPONSIVE DESIGN */
+@media screen and (max-width: 992px) {
+  .hero-section {
+    flex-direction: column;
+    height: auto;
+    min-height: 90vh;
+  }
+
+  .hero-section .hero-content,
+  .hero-visual {
+    width: 100%;
+    padding: 60px 40px;
+  }
+
+  .nav-link {
+    display: none;
+    /* Hide desktop links, use burger menu */
+  }
+
+  .project-card,
+  .shop-card {
+    width: calc(50% - 12.5px);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 0 15px;
+  }
+
+  .project-container,
+  .shop-container {
+    padding: 20px;
+  }
+
+  .project-card,
+  .shop-card {
+    width: 100%;
+  }
+
+  .hero-section .hero-content h1 {
+    font-size: 3.5rem;
+  }
+
+  .search-bar {
+    margin: 0 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .hero-section .hero-content {
+    padding: 40px 20px;
+  }
+
+  .hero-section .hero-content h1 {
+    font-size: 2.8rem;
+  }
+
+  .mission-vision {
+    flex-direction: column;
+  }
+
+  .nav-brand {
+    margin-right: 0;
+  }
+
+  .search-bar {
+    display: none;
+    /* Hide search bar on very small screens or adjust */
+  }
+}
+
 .empty-state {
   width: 100%;
   text-align: center;

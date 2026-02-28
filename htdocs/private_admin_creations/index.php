@@ -1,9 +1,6 @@
 <?php
-session_start();
-if (!isset($_SESSION['admin_logged_in'])) {
-    header('Location: login.php');
-    exit;
-}
+require_once '../backend/middleware/auth.php';
+requireAdmin();
 include '../backend/config/database.php';
 
 // Ambil data untuk Manage Projects (Asumsi kategory selain 'Merchandise', 'Digital Art', 'UI Component', 'Service')
@@ -180,6 +177,7 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'project-section';
             <div class="admin-header">
                 <h2>Omeng Admin Dashboard</h2>
                 <p>Kelola konten website kamu di bawah ini.</p>
+                <a href="../backend/admin/logout.php" class="logout-link" onclick="return confirm('Yakin ingin logout?')">Logout</a>
                 
                 <?php if (isset($_GET['success'])): ?>
                     <div style="background: #27ae60; color: white; padding: 15px; border-radius: 12px; margin-top: 20px; font-weight: 600;">

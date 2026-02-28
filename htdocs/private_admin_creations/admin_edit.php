@@ -1,10 +1,7 @@
 <?php
-session_start();
-if (!isset($_SESSION['admin_logged_in'])) {
-    header('Location: login.php');
-    exit;
-}
-include 'backend/config/database.php';
+require_once '../backend/middleware/auth.php';
+requireAdmin();
+include '../backend/config/database.php';
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $type = isset($_GET['type']) ? $_GET['type'] : 'project';
@@ -24,7 +21,7 @@ if (!$item) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Item | Omeng Creations</title>
-    <link rel="stylesheet" href="frontend/css/main.css?v=1.3">
+    <link rel="stylesheet" href="../frontend/css/main.css?v=1.3">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         .edit-container { max-width: 800px; margin: 40px auto; padding: 40px; background: #fff; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
@@ -34,16 +31,16 @@ if (!$item) {
     </style>
 </head>
 <body>
-    <?php include 'frontend/includes/navbar.php'; ?>
+    <?php include '../frontend/includes/navbar.php'; ?>
     <main>
         <section class="admin-section">
             <div class="edit-container">
                 <div class="edit-header">
                     <h2>Edit <?= ($type == 'shop') ? 'Shop Item' : 'Project' ?></h2>
-                    <a href="admin.php?tab=<?= ($type == 'shop') ? 'shop-section' : 'project-section' ?>" class="btn">Kembali</a>
+                    <a href="index.php?tab=<?= ($type == 'shop') ? 'shop-section' : 'project-section' ?>" class="btn">Kembali</a>
                 </div>
 
-                <form action="backend/admin/update_item.php" method="POST" enctype="multipart/form-data" class="admin-form">
+                <form action="../backend/admin/update_item.php" method="POST" enctype="multipart/form-data" class="admin-form">
                     <input type="hidden" name="id" value="<?= $item['id'] ?>">
                     <input type="hidden" name="type" value="<?= $type ?>">
 
@@ -89,7 +86,7 @@ if (!$item) {
                         <label>Ganti Gambar (Biarkan kosong jika tidak ingin ganti)</label>
                         <input type="file" name="gambar">
                         <?php 
-                            $img_path = (file_exists("backend/assets/uploads/".$item['gambar'])) ? "backend/assets/uploads/".$item['gambar'] : "frontend/images/".$item['gambar'];
+                            $img_path = (file_exists("../backend/assets/uploads/".$item['gambar'])) ? "../backend/assets/uploads/".$item['gambar'] : "../frontend/images/".$item['gambar'];
                         ?>
                         <img src="<?= $img_path ?>" class="current-image" alt="Pratinjau">
                     </div>

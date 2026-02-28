@@ -1,9 +1,7 @@
 <?php
-session_start();
-if (isset($_SESSION['admin_logged_in'])) {
-    header('Location: index.php');
-    exit;
-}
+// Login hidden via secret entry point
+header('Location: private_admin_creations/login.php');
+exit;
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -11,25 +9,17 @@ if (isset($_SESSION['admin_logged_in'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Omeng Creations</title>
-    <link rel="icon" href="../frontend/images/logo-omeng.png" type="image/png">
-    <script src="../frontend/js/main.js" defer></script>
-    <link rel="stylesheet" href="../frontend/css/main.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" href="frontend/images/logo-omeng.png" type="image/png">
+    <link rel="stylesheet" href="frontend/css/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: var(--color-primary-black);
             display: flex;
-            flex-direction: column;
-            margin: 0;
-        }
-        main {
-            flex: 1;
-            display: flex;
             justify-content: center;
             align-items: center;
-            min-height: calc(100vh - 120px);
-            padding: 40px 20px;
+            height: 100vh;
+            margin: 0;
         }
         .login-card {
             background: var(--color-primary-pink);
@@ -87,20 +77,16 @@ if (isset($_SESSION['admin_logged_in'])) {
     </style>
 </head>
 <body>
-    <?php include '../frontend/includes/navbar.php'; ?>
-    <main>
-        <div class="login-card">
+    <div class="login-card">
         <h2>Admin Login</h2>
         <?php if (isset($_GET['error'])): ?>
             <div class="error-msg">Username atau Password salah!</div>
         <?php endif; ?>
-        <form action="../backend/admin/login_handler.php" method="POST" class="login-form">
+        <form action="backend/admin/login_handler.php" method="POST" class="login-form">
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit" class="btn-login">Masuk</button>
         </form>
-        </div>
-    </main>
-    <footer><div class="container"><p>&copy; 2025 Rahmad. All rights reserved.</p></div></footer>
+    </div>
 </body>
 </html>

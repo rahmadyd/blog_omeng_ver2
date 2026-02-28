@@ -1,0 +1,13 @@
+# Proteksi folder admin panel yang hidden
+Options -Indexes
+
+# Izinkan akses ke file PHP
+<FilesMatch "\.php$">
+    Require all granted
+</FilesMatch>
+
+# Redirect akses langsung ke folder ke index
+DirectoryIndex index.php
+
+# Proteksi dari akses langsung tanpa session
+# Ini akan di-handle oleh middleware auth.php

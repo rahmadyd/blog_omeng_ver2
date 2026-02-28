@@ -4,7 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 // Determine base path for links depending on deployment. Use root-relative paths to avoid
 // broken links when pages are served from subfolders.
-$is_private_admin = (strpos($_SERVER['SCRIPT_NAME'], '/private_admin/') !== false) || (strpos($_SERVER['REQUEST_URI'], '/private_admin/') !== false);
+$is_admin_panel = (strpos($_SERVER['SCRIPT_NAME'], '/private_admin_creations/') !== false) || (strpos($_SERVER['REQUEST_URI'], '/private_admin_creations/') !== false);
 // Compute a robust root path based on the current request so links work both when the
 // project is served from a subfolder (e.g. http://host/blog_omeng/) or directly from
 // the webserver root. We take the first path segment as the project folder if present.
@@ -70,22 +70,7 @@ $current_page = basename($_SERVER['SCRIPT_FILENAME']);
                             <a href="<?php echo url_for_fs(__DIR__ . '/../html/feedback.php'); ?>" class="<?php echo ($current_page == 'feedback.php') ? 'active' : ''; ?>"><span class="material-icons">feedback</span> Feedback</a>
                             <a href="<?php echo url_for_fs(__DIR__ . '/../html/qna.php'); ?>" class="<?php echo ($current_page == 'qna.php') ? 'active' : ''; ?>"><span class="material-icons">help_outline</span> QNA</a>
                             
-                            <!-- Admin Link: Always 'Admin Panel' -->
-                                                    <?php
-                                                        // Point admin links to private_admin and show logout only when inside admin area
-                                                        $is_in_private_admin = $is_private_admin;
-                                                        if ($is_in_private_admin) {
-                                                            $admin_target = $base_path . 'private_admin/' . (isset($_SESSION['admin_logged_in']) ? 'index.php' : 'login.php');
-                                                        } else {
-                                                            // always use root-relative admin links
-                                                            $admin_target = $base_path . 'private_admin/' . (isset($_SESSION['admin_logged_in']) ? 'index.php' : 'login.php');
-                                                        }
-                                                    ?>
-                                                    <a href="<?php echo url_for_fs(dirname(__DIR__) . '/../private_admin/' . (isset($_SESSION['admin_logged_in']) ? 'index.php' : 'login.php')); ?>" class="admin-link">
-                                <span class="material-icons">admin_panel_settings</span> Admin Panel
-                            </a>
-
-                            <?php if (isset($_SESSION['admin_logged_in']) && $is_in_private_admin): ?>
+                            <?php if (isset($_SESSION['admin_logged_in']) && $is_admin_panel): ?>
                                 <a href="<?php echo url_for_fs(__DIR__ . '/../../backend/admin/logout.php'); ?>" class="admin-link" style="color: #ff4757;">
                                     <span class="material-icons">logout</span> Logout
                                 </a>

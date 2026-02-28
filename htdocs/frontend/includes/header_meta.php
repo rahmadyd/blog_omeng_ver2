@@ -6,6 +6,7 @@ $site_url = "http://localhost/blog_omeng/"; // Update later when hosting
 $site_image = $site_url . "frontend/images/logo-omeng.png";
 ?>
 <!-- SEO Meta Tags -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="<?= $site_description ?>">
 <meta name="keywords" content="Omeng Creations, Digital Art, Design, Merchandise, Portofolio">
 <meta name="author" content="Omeng">

@@ -22,7 +22,7 @@ if ($result) {
     echo "<p>Username dan password telah direset ke:</p>";
     echo "<p><strong>Username:</strong> admin</p>";
     echo "<p><strong>Password:</strong> admin123</p>";
-    echo "<p><a href='../../private_admin/login.php'>Pergi ke Login</a></p>";
+    echo "<p><a href='../../admin_ctrl/login.php'>Pergi ke Login</a></p>";
 } else {
     echo "<h2>✗ Error!</h2>";
     echo "<p>Gagal mereset credentials: " . mysqli_error($conn) . "</p>";

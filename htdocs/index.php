@@ -1,6 +1,6 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+ini_set('display_errors', 0);
+error_reporting(0);
 
 session_start();
 require_once __DIR__ . '/backend/config/database.php';
@@ -91,7 +91,7 @@ $result_shop = mysqli_query($conn, $query_shop);
                     $uploadPath = __DIR__ . "/backend/assets/uploads/" . $row['gambar'];
                     $img_path = (file_exists($uploadPath)) ? "backend/assets/uploads/".$row['gambar'] : "frontend/images/".$row['gambar'];
             ?>
-            <a href="detail.php?id=<?php echo $row['id']; ?>" class="project-card preview-trigger">
+            <a href="detail.php?id=<?php echo $row['id']; ?>" class="project-card">
               <div class="card-image"><img src="<?php echo $img_path; ?>" alt="<?php echo $row['judul']; ?>" loading="lazy"></div>
               <div class="card-badges">
                 <?php
@@ -161,7 +161,7 @@ $result_shop = mysqli_query($conn, $query_shop);
                 $message = urlencode("Halo Omeng Creations! Saya tertarik untuk memesan produk \"" . $row['judul'] . "\". Apakah masih tersedia?");
                 $wa_link = "https://wa.me/" . $clean_wa . "?text=" . $message;
             ?>
-            <a href="<?php echo $wa_link; ?>" class="shop-card" target="_blank">
+            <a href="detail.php?id=<?php echo $row['id']; ?>" class="shop-card">
               <div class="card-image"><img src="<?php echo $img_path; ?>" alt="<?php echo $row['judul']; ?>" loading="lazy"></div>
               <div class="card-badges"><span class="badge"><?php echo $row['kategori']; ?></span></div>
               <div class="card-content">
@@ -169,7 +169,7 @@ $result_shop = mysqli_query($conn, $query_shop);
                 <p><?php echo $row['deskripsi']; ?></p>
                 <div class="card-footer">
                   <span class="date">Rp <?php echo number_format((float)$row['tanggal'], 0, ',', '.'); ?></span>
-                  <span class="view-link">Order Now</span>
+                  <span class="view-link">View Product</span>
                 </div>
               </div>
             </a>

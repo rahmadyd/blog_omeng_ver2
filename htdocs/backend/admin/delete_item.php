@@ -1,14 +1,11 @@
 <?php
-session_start();
-if (!isset($_SESSION['admin_logged_in'])) {
-    header('Location: ../../login.php');
-    exit;
-}
+require_once '../middleware/auth.php';
+requireAdmin();
 include '../config/database.php';
 include 'logger.php';
 
 if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+    $id = (int)$_GET['id'];
     
     // Ambil info item dulu untuk dihapus dari server (opsional)
     $q_img = "SELECT gambar, judul FROM projects WHERE id = $id";
@@ -26,11 +23,11 @@ if (isset($_GET['id'])) {
     $tab = (isset($_GET['type']) && $_GET['type'] == 'shop') ? 'shop-section' : 'project-section';
     
     if (mysqli_query($conn, $query)) {
-        $admin = $_SESSION['admin_username'] ?? 'unknown';
+        $admin = getAdminUsername();
         $target_title = $data_img['judul'] ?? null;
         $details = "judul: " . ($target_title ?? '') ;
         log_action($conn, $admin, 'delete', 'projects', $id, $details);
-        header("Location: ../../private_admin/index.php?success=deleted&tab=$tab");
+        header("Location: ../../admin_panel_omeng_secret/index.php?success=deleted&tab=$tab");
     } else {
         echo "Error: " . mysqli_error($conn);
     }

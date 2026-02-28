@@ -1,0 +1,10 @@
+# Proteksi folder admin
+Options -Indexes
+
+# Izinkan akses ke file PHP
+<FilesMatch "\.php$">
+    Require all granted
+</FilesMatch>
+
+# Redirect akses langsung ke folder ke login
+DirectoryIndex login.php

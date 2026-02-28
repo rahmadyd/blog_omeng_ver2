@@ -14,12 +14,12 @@ $result_shop = mysqli_query($conn, $query_shop);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="frontend/images/logo-omeng.png" type="image/png">
   <title>Shop | Omeng Creations</title>
-  <link rel="stylesheet" href="frontend/css/main.css?v=1.6">
+  <link rel="stylesheet" href="frontend/css/main.css?v=1.8">
+  <script src="frontend/js/main.js?v=1.2" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
-  <script src="frontend/js/main.js?v=1.1" defer></script>
   <?php include 'frontend/includes/header_meta.php'; ?>
 </head>
 
@@ -27,19 +27,38 @@ $result_shop = mysqli_query($conn, $query_shop);
   <?php include 'frontend/includes/navbar.php'; ?>
 
   <main>
-    <section class="shop-section">
+    <section class="shop-section" style="padding-top: 120px;">
       <div class="shop-container">
         <div class="shop-header">
           <div class="title-area">
-            <h2>Let see My Shop</h2>
+            <h2 style="font-family: 'Bebas Neue', cursive; font-size: 3rem; color: white;">Omeng's Shop</h2>
+            <p style="color: rgba(255,255,255,0.7);">Koleksi produk digital dan merchandise eksklusif.</p>
           </div>
         </div>
 
         <div class="shop-card-container">
-          <?php if (mysqli_num_rows($result_shop) > 0): ?>
-            ...
+          <?php if ($result_shop && mysqli_num_rows($result_shop) > 0): ?>
+            <?php while($row = mysqli_fetch_assoc($result_shop)): 
+                $uploadPath = __DIR__ . "/backend/assets/uploads/" . $row['gambar'];
+                $img_path = (file_exists($uploadPath)) ? "backend/assets/uploads/".$row['gambar'] : "frontend/images/".$row['gambar'];
+            ?>
+            <a href="detail.php?id=<?php echo $row['id']; ?>" class="shop-card">
+              <div class="card-image"><img src="<?php echo $img_path; ?>" alt="<?php echo $row['judul']; ?>" loading="lazy"></div>
+              <div class="card-badges"><span class="badge"><?php echo $row['kategori']; ?></span></div>
+              <div class="card-content">
+                <h3><?php echo $row['judul']; ?></h3>
+                <p><?php echo $row['deskripsi']; ?></p>
+                <div class="card-footer">
+                  <span class="date">Rp <?php echo number_format((float)$row['tanggal'], 0, ',', '.'); ?></span>
+                  <span class="view-link">View Product</span>
+                </div>
+              </div>
+            </a>
+            <?php endwhile; ?>
           <?php else: ?>
-            <p class="empty-state">Belum ada item di toko.</p>
+            <div class="empty-state">
+              <p>Belum ada item di toko.</p>
+            </div>
           <?php endif; ?>
         </div>
       </div>

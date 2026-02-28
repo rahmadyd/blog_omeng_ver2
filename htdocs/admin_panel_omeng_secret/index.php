@@ -1,8 +1,11 @@
 <?php
-// Admin moved to private_admin. Redirecting.
-header('Location: private_admin/index.php');
-exit;
-?>
+require_once '../backend/middleware/auth.php';
+requireAdmin();
+include '../backend/config/database.php';
+
+// Ambil data untuk Manage Projects (Asumsi kategory selain 'Merchandise', 'Digital Art', 'UI Component', 'Service')
+$query_projects = "SELECT * FROM projects WHERE kategori NOT IN ('Merchandise', 'Digital Art', 'UI Component', 'Service') ORDER BY id DESC";
+$result_projects = mysqli_query($conn, $query_projects);
 
 // Ambil data untuk Manage Shop
 $query_shop = "SELECT * FROM projects WHERE kategori IN ('Merchandise', 'Digital Art', 'UI Component', 'Service') ORDER BY id DESC";
@@ -52,7 +55,7 @@ $desc_result = mysqli_query($conn, $desc_query);
 $desc_data = mysqli_fetch_assoc($desc_result);
 $current_desc = $desc_data['setting_value'] ?? 'Ruang digital untuk merayakan seni kontras.';
 
-// Fetch recent logs for admin (shows latest 200) - only if table exists
+// Fetch recent logs for admin (shows latest 200) if table exists
 $res_logs = false;
 try {
     $check_logs = mysqli_query($conn, "SHOW TABLES LIKE 'logs'");
@@ -72,9 +75,9 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'project-section';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard | Omeng Creations</title>
-    <link rel="icon" href="frontend/images/logo-omeng.png" type="image/png">
-    <script src="frontend/js/main.js" defer></script>
-    <link rel="stylesheet" href="frontend/css/main.css?v=1.7">
+    <link rel="icon" href="../frontend/images/logo-omeng.png" type="image/png">
+    <script src="../frontend/js/main.js" defer></script>
+    <link rel="stylesheet" href="../frontend/css/main.css?v=1.7">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -167,13 +170,18 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'project-section';
     </style>
 </head>
 <body>
-    <?php include 'frontend/includes/navbar.php'; ?>
+    <?php include '../frontend/includes/navbar.php'; ?>
 <main>
     <section class="admin-section">
         <div class="admin-container">
             <div class="admin-header">
-                <h2>Omeng Admin Dashboard</h2>
-                <p>Kelola konten website kamu di bawah ini.</p>
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <div>
+                        <h2>Omeng Admin Dashboard</h2>
+                        <p>Kelola konten website kamu di bawah ini.</p>
+                    </div>
+                    <a href="../backend/admin/logout.php" class="logout-link" style="margin-top: 0; color: #ff4757; font-weight: bold; text-decoration: none;" onclick="return confirm('Yakin ingin logout?')">Logout</a>
+                </div>
                 
                 <?php if (isset($_GET['success'])): ?>
                     <div style="background: #27ae60; color: white; padding: 15px; border-radius: 12px; margin-top: 20px; font-weight: 600;">
@@ -217,7 +225,7 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'project-section';
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
                     <div>
                         <h3>Add New Project</h3>
-                        <form action="backend/admin/proses_tambah.php" method="POST" enctype="multipart/form-data" class="admin-form">
+                        <form action="../backend/admin/proses_tambah.php" method="POST" enctype="multipart/form-data" class="admin-form">
                             <div class="form-group"><label>Judul</label><input type="text" name="judul" required></div>
                             <div class="form-group"><label>Kategori</label>
                                 <select name="kategori">
@@ -241,7 +249,7 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'project-section';
                                     <td><?= $row['judul'] ?></td>
                                     <td>
                                         <a href="admin_edit.php?id=<?= $row['id'] ?>&type=project" class="btn" style="background: var(--color-accent); color: #fff; padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; text-decoration: none; margin-right: 5px;">Edit</a>
-                                        <a href="backend/admin/delete_item.php?id=<?= $row['id'] ?>&type=project" class="btn-delete" onclick="return confirm('Yakin ingin menghapus?')">Delete</a>
+                                        <a href="../backend/admin/delete_item.php?id=<?= $row['id'] ?>&type=project" class="btn-delete" onclick="return confirm('Yakin ingin menghapus?')">Delete</a>
                                     </td>
                                 </tr>
                                 <?php endwhile; ?>
@@ -256,7 +264,7 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'project-section';
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
                     <div>
                         <h3>Add Shop Item</h3>
-                        <form action="backend/admin/proses_tambah_shop.php" method="POST" enctype="multipart/form-data" class="admin-form">
+                        <form action="../backend/admin/proses_tambah_shop.php" method="POST" enctype="multipart/form-data" class="admin-form">
                             <div class="form-group"><label>Nama Barang</label><input type="text" name="nama" required></div>
                             <div class="form-group"><label>Kategori</label>
                                 <select name="kategori">
@@ -283,7 +291,7 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'project-section';
                                     <td><?= $row['judul'] ?></td>
                                     <td>
                                         <a href="admin_edit.php?id=<?= $row['id'] ?>&type=shop" class="btn" style="background: var(--color-accent); color: #fff; padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; text-decoration: none; margin-right: 5px;">Edit</a>
-                                        <a href="backend/admin/delete_item.php?id=<?= $row['id'] ?>&type=shop" class="btn-delete" onclick="return confirm('Yakin ingin menghapus?')">Delete</a>
+                                        <a href="../backend/admin/delete_item.php?id=<?= $row['id'] ?>&type=shop" class="btn-delete" onclick="return confirm('Yakin ingin menghapus?')">Delete</a>
                                     </td>
                                 </tr>
                                 <?php endwhile; ?>
@@ -378,7 +386,7 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'project-section';
                     <!-- Change Password -->
                     <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
                         <h4 style="color: var(--color-primary-pink); margin-bottom: 20px;">Ganti Password Admin</h4>
-                        <form method="POST" action="backend/admin/update_settings.php" class="admin-form">
+                        <form method="POST" action="../backend/admin/update_settings.php" class="admin-form">
                             <input type="hidden" name="action" value="change_password">
                             <div class="form-group">
                                 <label>Password Lama</label>
@@ -399,7 +407,7 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'project-section';
                     <!-- WhatsApp Number -->
                     <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
                         <h4 style="color: var(--color-primary-pink); margin-bottom: 20px;">Nomor WhatsApp</h4>
-                        <form method="POST" action="backend/admin/update_settings.php" class="admin-form">
+                        <form method="POST" action="../backend/admin/update_settings.php" class="admin-form">
                             <input type="hidden" name="action" value="update_wa">
                             <div class="form-group">
                                 <label>Nomor WhatsApp (untuk tombol Order Now)</label>
@@ -413,7 +421,7 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'project-section';
                     <!-- Site Info -->
                     <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
                         <h4 style="color: var(--color-primary-pink); margin-bottom: 20px;">Informasi Website</h4>
-                        <form method="POST" action="backend/admin/update_settings.php" class="admin-form">
+                        <form method="POST" action="../backend/admin/update_settings.php" class="admin-form">
                             <input type="hidden" name="action" value="update_site_info">
                             <div class="form-group">
                                 <label>Judul Website</label>

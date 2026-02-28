@@ -1,12 +1,6 @@
 <?php
-session_start();
-
-// Check if admin is logged in
-if (!isset($_SESSION['admin_logged_in'])) {
-    header('Location: ../../login.php');
-    exit;
-}
-
+require_once '../middleware/auth.php';
+requireAdmin();
 include '../config/database.php';
 include 'logger.php';
 
@@ -21,30 +15,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         // Validate new password matches confirmation
         if ($new_password !== $confirm_password) {
-            header('Location: ../../frontend/html/settings.php?error=password_mismatch');
+            header('Location: ../../admin_panel_omeng_secret/index.php?tab=site-settings-section&error=password_mismatch');
             exit;
         }
         
         // Get current admin credentials
-        $query = "SELECT * FROM admins WHERE username = 'omeng.gembul' LIMIT 1";
-        $result = mysqli_query($conn, $query);
+        $admin_username = getAdminUsername();
+        $query = "SELECT * FROM admins WHERE username = ? LIMIT 1";
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, 's', $admin_username);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
         $admin = mysqli_fetch_assoc($result);
         
         // Verify current password
         if (!password_verify($current_password, $admin['password'])) {
-            header('Location: ../../frontend/html/settings.php?error=wrong_password');
+            header('Location: ../../admin_panel_omeng_secret/index.php?tab=site-settings-section&error=wrong_password');
             exit;
         }
         
         // Hash new password and update
         $hashed_password = password_hash($new_password, PASSWORD_BCRYPT);
-        $update_query = "UPDATE admins SET password = ? WHERE username = 'omeng.gembul'";
+        $update_query = "UPDATE admins SET password = ? WHERE username = ?";
         $stmt = mysqli_prepare($conn, $update_query);
-        mysqli_stmt_bind_param($stmt, 's', $hashed_password);
+        mysqli_stmt_bind_param($stmt, 'ss', $hashed_password, $admin_username);
         mysqli_stmt_execute($stmt);
-        $admin = $_SESSION['admin_username'] ?? 'omeng.gembul';
-        log_action($conn, $admin, 'update', 'admins', null, 'password_changed');
-        header('Location: ../../private_admin/index.php?tab=site-settings-section&success=password_changed');
+        log_action($conn, $admin_username, 'update', 'admins', null, 'password_changed');
+        header('Location: ../../admin_panel_omeng_secret/index.php?tab=site-settings-section&success=password_changed');
         exit;
     }
     
@@ -61,9 +58,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt = mysqli_prepare($conn, $update_query);
         mysqli_stmt_bind_param($stmt, 's', $wa_number);
         mysqli_stmt_execute($stmt);
-        $admin = $_SESSION['admin_username'] ?? 'unknown';
+        $admin = getAdminUsername();
         log_action($conn, $admin, 'update', 'site_settings', null, 'wa_number_updated');
-        header('Location: ../../private_admin/index.php?tab=site-settings-section&success=wa_updated');
+        header('Location: ../../admin_panel_omeng_secret/index.php?tab=site-settings-section&success=wa_updated');
         exit;
     }
     
@@ -84,13 +81,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         mysqli_stmt_bind_param($stmt, 's', $site_description);
         mysqli_stmt_execute($stmt);
 
-        $admin = $_SESSION['admin_username'] ?? 'unknown';
+        $admin = getAdminUsername();
         log_action($conn, $admin, 'update', 'site_settings', null, "site_title_updated: $site_title");
-        header('Location: ../../private_admin/index.php?tab=site-settings-section&success=site_info_updated');
+        header('Location: ../../admin_panel_omeng_secret/index.php?tab=site-settings-section&success=site_info_updated');
         exit;
     }
 }
 
-header('Location: ../../admin.php?tab=site-settings-section');
+header('Location: ../../admin_panel_omeng_secret/index.php?tab=site-settings-section');
 exit;
 ?>
