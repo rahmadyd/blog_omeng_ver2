@@ -1,0 +1,115 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="404 — Halaman Tidak Ditemukan"
+  description="Halaman yang Anda cari tidak ditemukan atau telah dipindahkan."
+>
+  <div class="not-found-page">
+    <div class="not-found-container">
+      <span class="error-code">404</span>
+      <h1 class="error-title">Koordinat Tidak Ditemukan</h1>
+      <p class="error-desc">
+        Halaman atau rute yang Anda tuju telah dipindahkan, direstrukturisasi ke sistem statis baru, atau tidak pernah ada.
+      </p>
+
+      <div class="error-actions">
+        <a href="/" class="btn btn-primary">
+          Kembali ke Beranda
+        </a>
+        <a href="/#karya" class="btn btn-secondary">
+          Eksplorasi Karya
+        </a>
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .not-found-page {
+    min-height: calc(100vh - var(--header-height) - 160px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-2xl) var(--space-md);
+    text-align: center;
+  }
+
+  .not-found-container {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .error-code {
+    font-family: var(--font-display);
+    font-size: clamp(6rem, 15vw, 12rem);
+    color: var(--accent);
+    line-height: 0.9;
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 40px rgba(255, 105, 180, 0.3);
+  }
+
+  .error-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--text);
+    margin-top: var(--space-sm);
+    margin-bottom: var(--space-md);
+    letter-spacing: 0.03em;
+  }
+
+  .error-desc {
+    font-size: 1.1rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: var(--space-xl);
+  }
+
+  .error-actions {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 24px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .btn-primary {
+    background-color: var(--accent);
+    color: #000000;
+    border: 1px solid var(--accent);
+  }
+
+  .btn-primary:hover {
+    background-color: #ff1493;
+    color: #ffffff;
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--text);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+</style>

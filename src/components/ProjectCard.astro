@@ -1,0 +1,213 @@
+---
+interface Props {
+  title: string;
+  summary: string;
+  image: string;
+  badges: string[];
+  year: number;
+  slug: string;
+}
+
+const {
+  title,
+  summary,
+  image,
+  badges,
+  year,
+  slug,
+} = Astro.props;
+---
+
+<article class="project-card">
+  <!-- Card Image with Lightbox Preview Trigger -->
+  <div class="card-image" data-preview data-title={title}>
+    <img src={image} alt={title} loading="lazy" width="400" height="240" />
+    <span class="preview-badge" aria-hidden="true">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        <line x1="11" y1="8" x2="11" y2="14"></line>
+        <line x1="8" y1="11" x2="14" y2="11"></line>
+      </svg>
+      Preview
+    </span>
+  </div>
+
+  <!-- Badges -->
+  <div class="card-badges">
+    {badges.map((badge) => (
+      <span class="badge">{badge}</span>
+    ))}
+  </div>
+
+  <!-- Content & Link to Detail -->
+  <div class="card-content">
+    <h3>
+      <a href={`/karya/${slug}`}>{title}</a>
+    </h3>
+    <p>{summary}</p>
+    <div class="card-footer">
+      <span class="date">{year}</span>
+      <a href={`/karya/${slug}`} class="view-link" aria-label={`Buka detail project ${title}`}>
+        View Project
+        <span class="arrow-icon" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</article>
+
+<style>
+  .project-card {
+    background: #ffffff;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    color: var(--color-text-dark);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+  }
+
+  .project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+  }
+
+  .card-image {
+    height: 210px;
+    overflow: hidden;
+    position: relative;
+    cursor: zoom-in;
+    background: #f4f4f6;
+  }
+
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.45s ease;
+  }
+
+  .project-card:hover .card-image img {
+    transform: scale(1.06);
+  }
+
+  .preview-badge {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: var(--radius-pill);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: all 0.25s ease;
+  }
+
+  .card-image:hover .preview-badge {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .card-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 16px 20px 0;
+  }
+
+  .badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background: #000000;
+    color: #ffffff;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+  }
+
+  .card-content {
+    padding: 16px 20px 22px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .card-content h3 {
+    font-family: var(--font-display);
+    font-size: 1.85rem;
+    line-height: 1.1;
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+  }
+
+  .card-content h3 a {
+    color: var(--color-text-dark);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .card-content h3 a:hover {
+    color: var(--color-accent);
+  }
+
+  .card-content p {
+    font-size: 0.92rem;
+    color: #555555;
+    line-height: 1.55;
+    margin-bottom: 20px;
+    flex-grow: 1;
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 14px;
+    border-top: 1px solid #eeeeee;
+    margin-top: auto;
+  }
+
+  .date {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #888888;
+  }
+
+  .view-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .view-link:hover {
+    color: var(--color-accent-hover);
+    transform: translateX(4px);
+  }
+
+  .arrow-icon {
+    display: inline-block;
+    transition: transform 0.2s ease;
+  }
+
+  .view-link:hover .arrow-icon {
+    transform: translateX(3px);
+  }
+</style>

@@ -1,0 +1,12 @@
+{
+  "redirects": [
+    { "source": "/index.php", "destination": "/", "permanent": true },
+    { "source": "/about.php", "destination": "/about", "permanent": true },
+    { "source": "/myproject.php", "destination": "/myproject", "permanent": true },
+    { "source": "/shop.php", "destination": "/shop", "permanent": true },
+    { "source": "/search.php", "destination": "/search", "permanent": true },
+    { "source": "/detail.php", "destination": "/myproject", "permanent": true },
+    { "source": "/tentang", "destination": "/about", "permanent": true },
+    { "source": "/login.html", "destination": "/", "permanent": true }
+  ]
+}

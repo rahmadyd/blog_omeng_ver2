@@ -1,0 +1,195 @@
+---
+// Komponen Hero Name dengan interaksi halus yang menghormati prefers-reduced-motion
+---
+
+<section class="hero-section" aria-labelledby="hero-title">
+  <div class="hero-container">
+    <div class="hero-tag" aria-hidden="true">
+      <span class="pulse-dot"></span>
+      <span>Tersedia untuk kepemimpinan desain &amp; arsitektur engineering</span>
+    </div>
+
+    <div class="title-wrapper" id="hero-interactive">
+      <h1 id="hero-title" class="hero-title">
+        <span class="char-line">OMENG</span>
+      </h1>
+      <div class="hero-glow" aria-hidden="true"></div>
+    </div>
+
+    <p class="hero-intro">
+      Art director dan software engineer dengan 15 tahun pengalaman merajut sistem digital berdaya tahan tinggi. Mengawinkan kepekaan visual yang berani dengan arsitektur kode tanpa kompromi.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#karya" class="btn btn-primary">
+        Lihat Karya Pilihan
+        <span class="btn-arrow" aria-hidden="true">↓</span>
+      </a>
+      <a href="/tentang" class="btn btn-secondary">
+        Tentang Perjalanan
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Efek interaktif kursor ringan (< 0.5KB) untuk momen yang diingat
+  const container = document.getElementById('hero-interactive');
+  const title = document.getElementById('hero-title');
+
+  if (container && title && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const handlePointerMove = (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+      const tiltX = (y * -6).toFixed(2);
+      const tiltY = (x * 8).toFixed(2);
+      const shiftX = (x * 12).toFixed(2);
+
+      title.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateZ(10px)`;
+      title.style.textShadow = `${shiftX}px 4px 20px rgba(255, 105, 180, 0.45), 0 0 40px rgba(255, 105, 180, 0.2)`;
+    };
+
+    const handlePointerLeave = () => {
+      title.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateZ(0)';
+      title.style.textShadow = '0 0 25px rgba(255, 105, 180, 0.2)';
+    };
+
+    container.addEventListener('mousemove', handlePointerMove, { passive: true });
+    container.addEventListener('mouseleave', handlePointerLeave, { passive: true });
+  }
+</script>
+
+<style>
+  .hero-section {
+    padding: clamp(var(--space-xl), 10vh, var(--space-2xl)) var(--space-md);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--accent-soft);
+    background: rgba(255, 192, 203, 0.08);
+    border: 1px solid rgba(255, 192, 203, 0.2);
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    margin-bottom: var(--space-lg);
+  }
+
+  .pulse-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--accent);
+  }
+
+  .title-wrapper {
+    position: relative;
+    cursor: default;
+    user-select: none;
+    margin-bottom: var(--space-md);
+    transform-style: preserve-3d;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(5.5rem, 18vw, 15rem);
+    line-height: 0.85;
+    letter-spacing: 0.04em;
+    color: var(--text);
+    margin: 0;
+    transition: transform 0.15s ease-out, text-shadow 0.2s ease-out;
+    text-shadow: 0 0 25px rgba(255, 105, 180, 0.2);
+  }
+
+  .hero-intro {
+    font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+    color: var(--muted);
+    font-weight: 400;
+    line-height: 1.6;
+    margin-bottom: var(--space-xl);
+    max-width: 62ch;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    align-items: center;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: 14px 26px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .btn-primary {
+    background-color: var(--accent);
+    color: #000000;
+    border: 1px solid var(--accent);
+  }
+
+  .btn-primary:hover {
+    background-color: #ff1493;
+    color: #ffffff;
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--text);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: var(--accent-soft);
+    color: var(--accent-soft);
+    transform: translateY(-2px);
+  }
+
+  .btn-arrow {
+    display: inline-block;
+    transition: transform 0.2s ease;
+  }
+
+  .btn-primary:hover .btn-arrow {
+    transform: translateY(2px);
+  }
+
+  @media (max-width: 700px) {
+    .hero-actions {
+      width: 100%;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .btn {
+      justify-content: center;
+    }
+  }
+</style>

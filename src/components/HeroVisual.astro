@@ -1,0 +1,225 @@
+---
+// Hero Section Split 50/50 dengan Animasi Ikonik Cat Mascot & Rotating Badge
+---
+
+<section class="hero-section" aria-labelledby="hero-heading">
+  <!-- Sisi Kiri: Teks & Ajakan Bertindak -->
+  <div class="hero-content">
+    <div class="hero-role-badge">
+      <span class="sparkle">✦</span> Art Director &amp; Software Engineer
+    </div>
+    <h1 id="hero-heading">
+      WELCOME to <br />OMENG Creations
+    </h1>
+    <p>
+      Ruang digital untuk merayakan seni kontras. Ikuti perjalanan kami dalam mengeksplorasi karya visual berkualitas tinggi dan rekayasa digital berdaya tahan tinggi.
+    </p>
+    <div class="hero-actions">
+      <a href="#project" class="btn btn-primary hero-cta">
+        Let see the Journey!
+        <span class="btn-arrow" aria-hidden="true">↓</span>
+      </a>
+      <a href="/about" class="btn btn-secondary">
+        Tentang Omeng
+      </a>
+    </div>
+  </div>
+
+  <!-- Sisi Kanan: Visual Pink Ikonik dengan Putaran Badge & Maskot Kucing -->
+  <div class="hero-visual" aria-hidden="true">
+    <div class="visual-wrapper">
+      <img
+        src="/images/logo-circle.png"
+        class="rotating-text"
+        alt="Omeng Creations Rotating Badge"
+        width="450"
+        height="450"
+      />
+      <img
+        src="/images/logo-omeng.png"
+        class="cat-logo"
+        alt="Omeng Cat Mascot"
+        width="220"
+        height="220"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-section {
+    display: flex;
+    min-height: calc(90vh - var(--header-height));
+    width: 100%;
+    margin: 0;
+    background: var(--color-primary-black);
+    position: relative;
+    border-bottom: 1px solid rgba(255, 192, 203, 0.2);
+  }
+
+  .hero-content {
+    width: 50%;
+    padding: clamp(40px, 6vw, 100px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    z-index: 2;
+  }
+
+  .hero-role-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-primary-pink);
+    background: rgba(255, 192, 203, 0.1);
+    border: 1px solid rgba(255, 192, 203, 0.25);
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    margin-bottom: 20px;
+  }
+
+  .sparkle {
+    color: var(--color-accent);
+  }
+
+  .hero-content h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3.2rem, 7vw, 6.2rem);
+    color: #ffffff;
+    line-height: 0.95;
+    letter-spacing: 0.03em;
+    margin-bottom: 24px;
+  }
+
+  .hero-content p {
+    font-family: var(--font-body);
+    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+    color: rgba(255, 255, 255, 0.82);
+    max-width: 520px;
+    line-height: 1.65;
+    margin-bottom: 36px;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .btn-primary {
+    background: var(--color-accent);
+    color: #ffffff;
+    border: 1px solid var(--color-accent);
+    box-shadow: 0 4px 20px rgba(255, 105, 180, 0.35);
+  }
+
+  .btn-primary:hover {
+    background: #ffffff;
+    color: var(--color-primary-black);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--color-primary-pink);
+    color: var(--color-primary-pink);
+    transform: translateY(-3px);
+  }
+
+  .btn-arrow {
+    display: inline-block;
+    transition: transform 0.2s ease;
+  }
+
+  .btn-primary:hover .btn-arrow {
+    transform: translateY(3px);
+  }
+
+  /* Sisi Kanan: Pink Visual */
+  .hero-visual {
+    width: 50%;
+    background-color: var(--color-primary-pink);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .visual-wrapper {
+    position: relative;
+    width: min(80%, 460px);
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .rotating-text {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    animation: spin 25s linear infinite;
+    z-index: 1;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15));
+  }
+
+  .cat-logo {
+    position: absolute;
+    width: 48%;
+    height: auto;
+    z-index: 2;
+    animation: flip-cat 8s ease-in-out infinite;
+    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.25));
+  }
+
+  @media (max-width: 900px) {
+    .hero-section {
+      flex-direction: column-reverse;
+      min-height: auto;
+    }
+
+    .hero-content {
+      width: 100%;
+      padding: 50px 24px;
+    }
+
+    .hero-visual {
+      width: 100%;
+      min-height: 380px;
+      padding: 40px 20px;
+    }
+
+    .visual-wrapper {
+      width: min(75%, 320px);
+    }
+  }
+</style>

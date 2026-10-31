@@ -1,0 +1,319 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import HeroVisual from '../components/HeroVisual.astro';
+import Marquee from '../components/Marquee.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import ShopCard from '../components/ShopCard.astro';
+
+// Ambil koleksi konten karya
+const semuaKarya = await getCollection('karya');
+
+// Filter 4 project utama
+const projects = semuaKarya
+  .filter((item) => item.data.category === 'project')
+  .sort((a, b) => b.data.year - a.data.year)
+  .slice(0, 4);
+
+// Filter 4 shop items utama
+const shopItems = semuaKarya
+  .filter((item) => item.data.category === 'shop')
+  .slice(0, 4);
+---
+
+<Base>
+  <!-- 1. HERO SECTION SPLIT 50/50 ASLI DENGAN ROTATING BADGE & MASKOT KUCING -->
+  <HeroVisual />
+
+  <!-- 2. MARQUEE BERJALAN KANAN ASLI -->
+  <Marquee text="OMENG" direction="right" id="project" />
+
+  <!-- 3. PROJECT SECTION (CONTAINER PINK BULAT 32PX & KARTU PUTIH ASLI) -->
+  <section class="project-section" aria-labelledby="project-heading">
+    <div class="project-container">
+      <div class="section-top-header">
+        <div class="title-area">
+          <h2 id="project-heading">Let see My Project</h2>
+          <p class="section-sub">Kurasi karya visual dan rekayasa digital pilihan.</p>
+        </div>
+
+        <a href="/myproject" class="more-btn" aria-label="Jelajahi semua proyek">
+          <span>Explore More</span>
+          <svg class="arrow-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <div class="cards-grid">
+        {projects.map((p) => (
+          <ProjectCard
+            title={p.data.title}
+            summary={p.data.summary}
+            image={p.data.image}
+            badges={p.data.badges}
+            year={p.data.year}
+            slug={p.slug || p.id}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. MARQUEE BERJALAN KIRI ASLI -->
+  <Marquee text="OMENG" direction="left" />
+
+  <!-- 5. SHOP SECTION (CONTAINER PINK BULAT 32PX & KARTU PRODUK ASLI) -->
+  <section class="shop-section" id="shop" aria-labelledby="shop-heading">
+    <div class="shop-container">
+      <div class="section-top-header">
+        <div class="title-area">
+          <h2 id="shop-heading">Let see My Shop</h2>
+          <p class="section-sub">Koleksi merchandise fisik dan aset grafis digital siap pakai.</p>
+        </div>
+
+        <a href="/shop" class="more-btn" aria-label="Lihat seluruh katalog toko">
+          <span>Explore More</span>
+          <svg class="arrow-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <div class="cards-grid">
+        {shopItems.map((s) => (
+          <ShopCard
+            title={s.data.title}
+            summary={s.data.summary}
+            image={s.data.image}
+            badges={s.data.badges}
+            price={s.data.price}
+            slug={s.slug || s.id}
+            link={s.data.link}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. AJAKAN KOLABORASI / KONTAK BERDAYA TARIK TINGGI -->
+  <section id="kontak" class="contact-section">
+    <div class="contact-container">
+      <div class="contact-card">
+        <span class="contact-tag">✦ Hubungi Kami</span>
+        <h2>Siap Memulai Proyek Bersama?</h2>
+        <p>
+          Terbuka untuk kolaborasi pengarahan seni visual (art direction), perancangan sistem identitas brand, hingga arsitektur rekayasa frontend performa tinggi.
+        </p>
+        <div class="contact-actions">
+          <a href="mailto:halo@omeng.dev" class="btn btn-primary contact-cta">
+            Kirim Email ke halo@omeng.dev ↗
+          </a>
+          <a href="https://wa.me/6285777145179" target="_blank" rel="noopener noreferrer" class="btn btn-wa">
+            WhatsApp Resmi ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /*== CONTAINER PINK BULAT 32PX DARI SITUS ASLI (DIPERBAIKI DENGAN GRID MODERN) */
+  .project-section,
+  .shop-section {
+    padding: 70px 24px;
+    background: var(--color-primary-black);
+  }
+
+  .project-container,
+  .shop-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: clamp(28px, 4vw, 50px);
+    background: var(--color-primary-pink);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 20px 50px rgba(255, 192, 203, 0.15);
+  }
+
+  .section-top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .title-area h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    letter-spacing: 0.03em;
+    color: #ffffff;
+    line-height: 1;
+    margin: 0 0 6px 0;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .section-sub {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.88);
+    margin: 0;
+  }
+
+  .more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(4px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .more-btn:hover {
+    background: rgba(255, 255, 255, 0.6);
+    color: #000000;
+    transform: translateX(4px);
+  }
+
+  .arrow-icon {
+    transition: transform 0.3s ease;
+  }
+
+  .more-btn:hover .arrow-icon {
+    transform: translateX(5px);
+  }
+
+  /* Grid 4 Kartu Sempurna & Rapi */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  /* Kontak Card */
+  .contact-section {
+    padding: 60px 24px 90px;
+    background: var(--color-primary-black);
+  }
+
+  .contact-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  .contact-card {
+    background: linear-gradient(135deg, #120810 0%, #060205 100%);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: clamp(40px, 6vw, 70px);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+  }
+
+  .contact-tag {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-accent);
+    margin-bottom: 14px;
+  }
+
+  .contact-card h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    letter-spacing: 0.03em;
+    color: #ffffff;
+    line-height: 1;
+    margin-bottom: 18px;
+  }
+
+  .contact-card p {
+    font-size: 1.15rem;
+    color: var(--color-muted);
+    max-width: 600px;
+    line-height: 1.6;
+    margin-bottom: 36px;
+  }
+
+  .contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 14px 28px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.25s ease;
+  }
+
+  .btn-primary {
+    background: var(--color-accent);
+    color: #ffffff;
+    box-shadow: 0 4px 20px rgba(255, 105, 180, 0.4);
+  }
+
+  .btn-primary:hover {
+    background: #ffffff;
+    color: var(--color-primary-black);
+    transform: translateY(-3px);
+  }
+
+  .btn-wa {
+    background: #25D366;
+    color: #ffffff;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+  }
+
+  .btn-wa:hover {
+    background: #1ebc59;
+    color: #ffffff;
+    transform: translateY(-3px);
+  }
+
+  @media (max-width: 1100px) {
+    .cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .cards-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .project-section,
+    .shop-section {
+      padding: 40px 16px;
+    }
+
+    .project-container,
+    .shop-container {
+      padding: 24px 16px;
+      border-radius: var(--radius-lg);
+    }
+  }
+</style>

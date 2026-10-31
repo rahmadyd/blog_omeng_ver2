@@ -1,0 +1,105 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import ShopCard from '../components/ShopCard.astro';
+
+const semuaKarya = await getCollection('karya');
+const shopItems = semuaKarya.filter((item) => item.data.category === 'shop');
+---
+
+<Base
+  title="Shop | Omeng Creations"
+  description="Koleksi produk digital, aset grafis, dan merchandise eksklusif dari Omeng Creations."
+>
+  <div class="shop-page">
+    <section class="shop-page-section">
+      <div class="shop-container">
+        <!-- Header Halaman Toko Asli -->
+        <div class="shop-header">
+          <div class="title-area">
+            <h1>Omeng's Shop</h1>
+            <p>Koleksi produk digital dan merchandise eksklusif siap pesan.</p>
+          </div>
+        </div>
+
+        <!-- Grid Kartu Toko Asli (Putih & Beresolusi Tinggi) -->
+        <div class="cards-grid">
+          {shopItems.map((s) => (
+            <ShopCard
+              title={s.data.title}
+              summary={s.data.summary}
+              image={s.data.image}
+              badges={s.data.badges}
+              price={s.data.price}
+              slug={s.slug || s.id}
+              link={s.data.link}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .shop-page {
+    padding-top: 40px;
+    padding-bottom: 80px;
+  }
+
+  .shop-page-section {
+    padding: 0 24px;
+  }
+
+  .shop-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: clamp(28px, 4vw, 50px);
+    background: var(--color-primary-pink);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 20px 50px rgba(255, 192, 203, 0.15);
+  }
+
+  .shop-header {
+    margin-bottom: 36px;
+  }
+
+  .shop-header h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    color: #ffffff;
+    line-height: 1;
+    margin: 0 0 10px 0;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .shop-header p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  @media (max-width: 1100px) {
+    .cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .cards-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .shop-container {
+      padding: 24px 16px;
+      border-radius: var(--radius-lg);
+    }
+  }
+</style>

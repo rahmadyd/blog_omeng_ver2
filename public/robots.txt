@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://omeng.vercel.app/sitemap-index.xml

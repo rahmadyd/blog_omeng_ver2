@@ -1,0 +1,164 @@
+---
+// Footer & Kontak Terintegrasi
+---
+
+<section id="kontak" class="contact-section" aria-labelledby="contact-heading">
+  <div class="contact-container">
+    <div class="contact-badge" aria-hidden="true">Hubungi Saya</div>
+    <h2 id="contact-heading" class="contact-title">
+      Punya proyek menantang?<br />
+      Mari berkolaborasi.
+    </h2>
+    <p class="contact-desc">
+      Terbuka untuk konsultasi arsitektur frontend tingkat lanjut, perancangan design system, serta pengarahan seni (art direction) untuk produk digital ambisius.
+    </p>
+
+    <div class="contact-action">
+      <a href="mailto:halo@omeng.dev" class="contact-email-btn" aria-label="Kirim email ke halo@omeng.dev">
+        <span class="email-text">halo@omeng.dev</span>
+        <span class="email-arrow" aria-hidden="true">↗</span>
+      </a>
+    </div>
+
+    <div class="social-links" aria-label="Tautan Media Sosial">
+      <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+      <a href="https://behance.net" target="_blank" rel="noopener noreferrer">Behance ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="copyright">
+      © {new Date().getFullYear()} Omeng. Dibangun dengan Astro 5, zero-bloat CSS, dan cinta pada estetika fungsional.
+    </p>
+    <div class="footer-meta">
+      <a href="#main-content" class="back-to-top">Kembali ke Atas ↑</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .contact-section {
+    padding: clamp(var(--space-xl), 8vh, var(--space-2xl)) var(--space-md);
+    background: linear-gradient(180deg, var(--bg) 0%, #0d060c 100%);
+    border-top: 1px solid var(--border);
+    position: relative;
+  }
+
+  .contact-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .contact-badge {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: var(--space-md);
+  }
+
+  .contact-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    line-height: 0.95;
+    letter-spacing: 0.03em;
+    color: var(--text);
+    margin-bottom: var(--space-md);
+  }
+
+  .contact-desc {
+    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+    color: var(--muted);
+    max-width: 58ch;
+    line-height: 1.6;
+    margin-bottom: var(--space-xl);
+  }
+
+  .contact-action {
+    margin-bottom: var(--space-xl);
+  }
+
+  .contact-email-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    color: var(--accent);
+    border-bottom: 3px solid var(--accent);
+    padding-bottom: 4px;
+    line-height: 1;
+    transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .contact-email-btn:hover {
+    color: #ffffff;
+    border-color: #ffffff;
+    transform: translateX(4px);
+  }
+
+  .email-arrow {
+    display: inline-block;
+    transition: transform 0.2s ease;
+  }
+
+  .contact-email-btn:hover .email-arrow {
+    transform: translate(4px, -4px);
+  }
+
+  .social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-lg);
+  }
+
+  .social-links a {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--muted);
+    transition: color 0.2s ease;
+  }
+
+  .social-links a:hover {
+    color: var(--accent);
+  }
+
+  .site-footer {
+    border-top: 1px solid rgba(255, 192, 203, 0.1);
+    background: #050505;
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .footer-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+  }
+
+  .copyright {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .back-to-top {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--accent);
+  }
+
+  .back-to-top:hover {
+    color: #ffffff;
+  }
+</style>

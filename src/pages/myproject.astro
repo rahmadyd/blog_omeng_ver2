@@ -1,0 +1,106 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const semuaKarya = await getCollection('karya');
+const projects = semuaKarya
+  .filter((item) => item.data.category === 'project')
+  .sort((a, b) => b.data.year - a.data.year);
+---
+
+<Base
+  title="My Project Gallery | Omeng Creations"
+  description="Koleksi karya dan proyek kreatif visual, branding, dan rekayasa frontend Omeng Creations."
+>
+  <div class="gallery-page">
+    <section class="gallery-section">
+      <div class="gallery-container">
+        <!-- Header Halaman Galeri Asli -->
+        <div class="gallery-header">
+          <div class="title-area">
+            <h1>My Project Gallery</h1>
+            <p>Koleksi karya dan proyek kreatif kami yang memadukan estetika visual dan presisi teknis.</p>
+          </div>
+        </div>
+
+        <!-- Grid Kartu Proyek Asli (Putih & Beresolusi Tinggi) -->
+        <div class="cards-grid">
+          {projects.map((p) => (
+            <ProjectCard
+              title={p.data.title}
+              summary={p.data.summary}
+              image={p.data.image}
+              badges={p.data.badges}
+              year={p.data.year}
+              slug={p.slug || p.id}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .gallery-page {
+    padding-top: 40px;
+    padding-bottom: 80px;
+  }
+
+  .gallery-section {
+    padding: 0 24px;
+  }
+
+  .gallery-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: clamp(28px, 4vw, 50px);
+    background: var(--color-primary-pink);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 20px 50px rgba(255, 192, 203, 0.15);
+  }
+
+  .gallery-header {
+    margin-bottom: 36px;
+  }
+
+  .gallery-header h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    color: #ffffff;
+    line-height: 1;
+    margin: 0 0 10px 0;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .gallery-header p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  @media (max-width: 1100px) {
+    .cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .cards-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .gallery-container {
+      padding: 24px 16px;
+      border-radius: var(--radius-lg);
+    }
+  }
+</style>

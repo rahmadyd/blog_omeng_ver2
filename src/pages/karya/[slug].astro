@@ -1,0 +1,34 @@
+---
+import { getCollection, render } from 'astro:content';
+import CaseStudy from '../../layouts/CaseStudy.astro';
+
+export async function getStaticPaths() {
+  const karyaEntries = await getCollection('karya');
+  return karyaEntries.map((entry) => ({
+    params: { slug: entry.slug || entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<CaseStudy
+  title={entry.data.title}
+  kind={entry.data.kind}
+  category={entry.data.category}
+  role={entry.data.role}
+  year={entry.data.year}
+  summary={entry.data.summary}
+  image={entry.data.image}
+  badges={entry.data.badges}
+  price={entry.data.price}
+  link={entry.data.link}
+  client={entry.data.client}
+  duration={entry.data.duration}
+  liveUrl={entry.data.liveUrl}
+  repoUrl={entry.data.repoUrl}
+>
+  <Content />
+</CaseStudy>

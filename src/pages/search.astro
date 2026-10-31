@@ -1,0 +1,203 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import ShopCard from '../components/ShopCard.astro';
+
+const allItems = await getCollection('karya');
+---
+
+<Base title="Pencarian | Omeng Creations" description="Cari karya dan produk di Omeng Creations.">
+  <div class="search-page">
+    <div class="search-container">
+      <div class="search-header">
+        <h1>Hasil Pencarian</h1>
+        <p id="searchStatus">Menampilkan semua karya dan produk...</p>
+      </div>
+
+      <!-- Live Search Box on Search Page -->
+      <div class="search-box-wrapper">
+        <input
+          type="text"
+          id="pageSearchInput"
+          placeholder="Ketik kata kunci (misal: design, sticker, branding)..."
+          class="page-search-input"
+        />
+      </div>
+
+      <div class="cards-grid" id="searchResultsGrid">
+        {allItems.map((item) => (
+          <div
+            class="search-item-wrapper"
+            data-search={`${item.data.title} ${item.data.summary} ${item.data.badges.join(' ')} ${item.data.kind} ${item.data.category}`.toLowerCase()}
+          >
+            {item.data.category === 'shop' ? (
+              <ShopCard
+                title={item.data.title}
+                summary={item.data.summary}
+                image={item.data.image}
+                badges={item.data.badges}
+                price={item.data.price}
+                slug={item.slug || item.id}
+                link={item.data.link}
+              />
+            ) : (
+              <ProjectCard
+                title={item.data.title}
+                summary={item.data.summary}
+                image={item.data.image}
+                badges={item.data.badges}
+                year={item.data.year}
+                slug={item.slug || item.id}
+              />
+            )}
+          </div>
+        ))}
+      </div>
+
+      <div id="noResultsMsg" class="no-results" style="display: none;">
+        <p>Tidak ada karya atau produk yang cocok dengan pencarian Anda.</p>
+        <a href="/myproject" class="btn-back">Lihat Semua Proyek</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const searchInput = document.getElementById('pageSearchInput') as HTMLInputElement;
+    const searchStatus = document.getElementById('searchStatus');
+    const items = document.querySelectorAll('.search-item-wrapper');
+    const noResults = document.getElementById('noResultsMsg');
+
+    const params = new URLSearchParams(window.location.search);
+    const initialQuery = params.get('q') || '';
+
+    const filterItems = (query: string) => {
+      const q = query.toLowerCase().trim();
+      let matchCount = 0;
+
+      items.forEach((item) => {
+        const text = item.getAttribute('data-search') || '';
+        if (!q || text.includes(q)) {
+          (item as HTMLElement).style.display = '';
+          matchCount++;
+        } else {
+          (item as HTMLElement).style.display = 'none';
+        }
+      });
+
+      if (searchStatus) {
+        searchStatus.textContent = q
+          ? `Ditemukan ${matchCount} hasil untuk "${query}"`
+          : 'Menampilkan semua karya dan produk...';
+      }
+
+      if (noResults) {
+        noResults.style.display = matchCount === 0 ? 'block' : 'none';
+      }
+    };
+
+    if (searchInput) {
+      if (initialQuery) {
+        searchInput.value = initialQuery;
+        filterItems(initialQuery);
+      }
+
+      searchInput.addEventListener('input', (e) => {
+        filterItems((e.target as HTMLInputElement).value);
+      });
+    }
+  </script>
+</Base>
+
+<style>
+  .search-page {
+    padding: 40px 24px 80px;
+  }
+
+  .search-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    background: var(--color-primary-pink);
+    border-radius: var(--radius-xl);
+    padding: clamp(28px, 4vw, 50px);
+    box-shadow: 0 20px 50px rgba(255, 192, 203, 0.15);
+  }
+
+  .search-header h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    color: #ffffff;
+    line-height: 1;
+    margin-bottom: 10px;
+    letter-spacing: 0.03em;
+  }
+
+  .search-header p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 30px;
+  }
+
+  .search-box-wrapper {
+    margin-bottom: 36px;
+  }
+
+  .page-search-input {
+    width: 100%;
+    padding: 14px 24px;
+    border-radius: var(--radius-pill);
+    border: 2px solid #ffffff;
+    background: #ffffff;
+    font-size: 1.05rem;
+    font-family: var(--font-body);
+    outline: none;
+    color: var(--color-text-dark);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .page-search-input:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 50px 20px;
+    color: #ffffff;
+    font-size: 1.2rem;
+  }
+
+  .btn-back {
+    display: inline-block;
+    margin-top: 16px;
+    background: #000000;
+    color: #ffffff;
+    padding: 10px 24px;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  @media (max-width: 1100px) {
+    .cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .cards-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .search-container {
+      padding: 24px 16px;
+    }
+  }
+</style>
