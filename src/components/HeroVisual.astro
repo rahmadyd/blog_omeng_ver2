@@ -1,22 +1,31 @@
 ---
-// Hero Section Split 50/50 dengan Animasi Ikonik Cat Mascot & Interactive Speech Bubbles
+// Hero Section Split 50/50 — Elevated Graphic Design Studio Aesthetic
 ---
 
 <section class="hero-section" aria-labelledby="hero-heading">
-  <!-- Sisi Kiri: Teks, Status Ketersediaan & Ajakan Bertindak -->
+  <!-- Sisi Kiri: Teks & Filosofi Desain Grafis -->
   <div class="hero-content">
-    <!-- Status Ketersediaan Kerja Real-time -->
-    <div class="availability-badge" aria-label="Status Ketersediaan: Terbuka untuk Proyek">
-      <span class="status-pulse"></span>
-      <span class="status-text">Tersedia untuk Proyek Q4 &amp; Konsultasi</span>
+    <div class="studio-badge" aria-label="Omeng Creations Graphic Design Studio">
+      <span class="badge-dot"></span>
+      <span class="badge-text">GRAPHIC DESIGN &amp; VISUAL ATELIER</span>
     </div>
 
     <h1 id="hero-heading">
-      WELCOME to <br />OMENG Creations
+      WELCOME TO <br />
+      <span class="brand-highlight">OMENG CREATIONS</span>
     </h1>
-    <p>
-      Ruang digital untuk merayakan seni kontras. Mengawinkan kepekaan visual seorang <strong class="highlight-pink">Art Director</strong> dengan ketelitian rekayasa perangkat lunak <strong class="highlight-white">15 tahun pengalaman</strong>.
+
+    <p class="hero-desc">
+      Ruang digital untuk merayakan seni kontras tinggi, ilustrasi berkarakter, dan identitas visual yang berani. Merancang karya grafis yang hidup, bercerita, dan memikat di pandangan pertama.
     </p>
+
+    <!-- Kategori Disiplin Desain Grafis Studio -->
+    <div class="discipline-tags" aria-label="Fokus Desain Grafis">
+      <span class="disc-tag">✦ Brand Identity</span>
+      <span class="disc-tag">✦ Illustration</span>
+      <span class="disc-tag">✦ Merchandise</span>
+      <span class="disc-tag">✦ Visual Art</span>
+    </div>
 
     <div class="hero-actions">
       <a href="#project" class="btn btn-primary hero-cta">
@@ -24,21 +33,27 @@
         <span class="btn-arrow" aria-hidden="true">↓</span>
       </a>
       <a href="/about" class="btn btn-secondary">
-        Tentang Omeng
+        Tentang Studio ↗
       </a>
     </div>
   </div>
 
   <!-- Sisi Kanan: Visual Pink Ikonik dengan Putaran Badge & Maskot Interaktif -->
   <div class="hero-visual" aria-label="Visual Interaktif Omeng Creations">
+    <!-- Studio Watermark Detail di Sudut Canvas -->
+    <div class="visual-corner-tag" aria-hidden="true">
+      <span>FIG. 01 — KINETIC LOGO</span>
+      <span>ED. 2025</span>
+    </div>
+
     <div class="visual-wrapper">
       <!-- Badge Melingkar Berputar 360 Derajat -->
       <img
         src="/images/logo-circle.png"
         class="rotating-text"
         alt="Omeng Creations Rotating Badge"
-        width="450"
-        height="450"
+        width="460"
+        height="460"
       />
 
       <!-- Gelembung Dialog Reaktif Maskot (Speech Bubble) -->
@@ -58,6 +73,7 @@
         />
       </button>
     </div>
+
     <span class="visual-hint" aria-hidden="true">Sentuh atau klik kucing untuk berinteraksi ✨</span>
   </div>
 </section>
@@ -71,12 +87,12 @@
 
   const quotes = [
     "Meow! 🐾 Siap bikin karya visual berani?",
-    "15 tahun merajut kode dan estetika! ⚡",
-    "Kontras tinggi, nol bloatware! 🚀",
-    "Desain bukan hanya tampilan, tapi cara kerjanya.",
-    "Astro 5 + Pure CSS = Kecepatan kilat! ⚡",
-    "Ada proyek menantang? Mari kita bahas! ✉️",
-    "Purrr... 🐱 Kamu menyukai web ini?",
+    "Desain grafis dengan karakter tajam! ⚡",
+    "Seni kontras tinggi, ilustrasi berjiwa! 🎨",
+    "Merchandise, branding, dan digital art! ✨",
+    "Bikin brand kamu tampil beda dari yang lain!",
+    "Ada proyek ilustrasi? Mari kita wujudkan! ✉️",
+    "Purrr... 🐱 Suka stiker atau merchandise Omeng?",
   ];
 
   let quoteIndex = 0;
@@ -115,14 +131,14 @@
     min-height: calc(88vh - var(--header-height));
     width: 100%;
     margin: 0;
-    background: var(--color-primary-black);
+    background: var(--color-deep-black);
     position: relative;
     border-bottom: 1px solid rgba(255, 192, 203, 0.2);
   }
 
   .hero-content {
     width: 50%;
-    padding: clamp(40px, 6vw, 100px);
+    padding: clamp(40px, 6vw, 96px);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -130,72 +146,71 @@
     z-index: 2;
   }
 
-  /* Badge Ketersediaan dengan Pulse Hijau */
-  .availability-badge {
+  /* Studio Monospace Tag */
+  .studio-badge {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 600;
-    letter-spacing: 0.04em;
-    color: #ffffff;
-    background: rgba(37, 211, 102, 0.1);
-    border: 1px solid rgba(37, 211, 102, 0.3);
-    padding: 6px 16px;
+    font-family: var(--font-mono);
+    letter-spacing: 0.1em;
+    color: var(--color-primary-pink);
+    background: rgba(255, 192, 203, 0.08);
+    border: 1px solid rgba(255, 192, 203, 0.22);
+    padding: 6px 14px;
     border-radius: var(--radius-pill);
-    margin-bottom: 22px;
+    margin-bottom: 24px;
   }
 
-  .status-pulse {
-    width: 8px;
-    height: 8px;
-    background-color: #25d366;
+  .badge-dot {
+    width: 7px;
+    height: 7px;
+    background-color: var(--color-accent);
     border-radius: 50%;
-    box-shadow: 0 0 10px #25d366;
-    animation: pulse-ring 2s infinite;
-  }
-
-  @keyframes pulse-ring {
-    0% {
-      transform: scale(0.95);
-      box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
-    }
-    70% {
-      transform: scale(1);
-      box-shadow: 0 0 0 8px rgba(37, 211, 102, 0);
-    }
-    100% {
-      transform: scale(0.95);
-      box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
-    }
+    box-shadow: 0 0 10px var(--color-accent);
   }
 
   .hero-content h1 {
     font-family: var(--font-display);
-    font-size: clamp(3.2rem, 7vw, 6.2rem);
+    font-size: clamp(3.4rem, 7.5vw, 6.4rem);
     color: #ffffff;
-    line-height: 0.95;
-    letter-spacing: 0.03em;
-    margin-bottom: 24px;
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    margin-bottom: 22px;
   }
 
-  .hero-content p {
+  .brand-highlight {
+    color: var(--color-primary-pink);
+    display: block;
+    text-shadow: 0 4px 30px rgba(255, 192, 203, 0.3);
+  }
+
+  .hero-desc {
     font-family: var(--font-body);
-    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+    font-size: clamp(1.05rem, 1.8vw, 1.2rem);
     color: rgba(255, 255, 255, 0.82);
-    max-width: 520px;
-    line-height: 1.65;
+    max-width: 540px;
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+
+  /* Discipline Tags */
+  .discipline-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
     margin-bottom: 36px;
   }
 
-  .highlight-pink {
-    color: var(--color-primary-pink);
-    font-weight: 600;
-  }
-
-  .highlight-white {
-    color: #ffffff;
-    font-weight: 600;
+  .disc-tag {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
   }
 
   .hero-actions {
@@ -210,37 +225,37 @@
     align-items: center;
     gap: 8px;
     padding: 14px 28px;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-pill);
     font-weight: 600;
     font-size: 0.95rem;
     text-transform: uppercase;
     letter-spacing: 0.04em;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .btn-primary {
     background: var(--color-accent);
     color: #ffffff;
     border: 1px solid var(--color-accent);
-    box-shadow: 0 4px 20px rgba(255, 105, 180, 0.35);
+    box-shadow: 0 6px 24px rgba(255, 105, 180, 0.38);
   }
 
   .btn-primary:hover {
     background: #ffffff;
-    color: var(--color-primary-black);
+    color: var(--color-deep-black);
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.35);
   }
 
   .btn-secondary {
     background: transparent;
     color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.28);
   }
 
   .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
     border-color: var(--color-primary-pink);
     color: var(--color-primary-pink);
     transform: translateY(-3px);
@@ -267,6 +282,22 @@
     overflow: hidden;
   }
 
+  /* Corner Technical Stamp */
+  .visual-corner-tag {
+    position: absolute;
+    top: 24px;
+    right: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.45);
+    letter-spacing: 0.08em;
+    pointer-events: none;
+  }
+
   .visual-wrapper {
     position: relative;
     width: min(80%, 460px);
@@ -283,7 +314,7 @@
     object-fit: contain;
     animation: spin 25s linear infinite;
     z-index: 1;
-    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15));
+    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.16));
     pointer-events: none;
   }
 
@@ -310,7 +341,7 @@
     width: clamp(140px, 18vw, 220px);
     height: auto;
     animation: flip-cat 8s ease-in-out infinite;
-    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.28));
+    filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.28));
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
 

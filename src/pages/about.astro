@@ -1,94 +1,133 @@
 ---
 import Base from '../layouts/Base.astro';
 
-const timeline = [
+const creativeMilestones = [
   {
-    period: '2021 — Sekarang',
-    role: 'Principal Art Director & Engineering Advisor',
-    org: 'Konsultan Independen / Omeng Studio',
-    desc: 'Membimbing tim produk digital, memimpin transisi arsitektur frontend skala besar, dan menyusun design system multi-platform.',
+    period: '2023 — Sekarang',
+    role: 'Lead Visual Designer & Illustrator',
+    org: 'Omeng Creations Atelier',
+    desc: 'Mengembangkan koleksi merchandise eksklusif, digital asset library berlisensi komersial, serta identitas visual brand independen.',
   },
   {
-    period: '2016 — 2021',
-    role: 'Lead Front-End Architect & Creative Technologist',
-    org: 'Fintech & Digital Venture Studio',
-    desc: 'Merancang arsitektur aplikasi finansial dengan latensi ultra-rendah dan kepatuhan aksesibilitas perbankan.',
+    period: '2021 — 2023',
+    role: 'Senior Graphic & Brand Designer',
+    org: 'Creative Brand Studio',
+    desc: 'Merancang visual identity, pedoman brand, kemasan produk fisik, dan eksplorasi tipografi untuk jenama retail modern.',
   },
   {
-    period: '2011 — 2016',
-    role: 'Senior Fullstack Engineer & Visual Designer',
-    org: 'Digital Agency & Brand Studio',
-    desc: 'Mengeksekusi lebih dari 40 proyek web interaktif, platform e-commerce kustom, dan identitas digital korporat.',
+    period: '2018 — 2021',
+    role: 'Digital Illustrator & Concept Artist',
+    org: 'Digital Art Collective',
+    desc: 'Menghasilkan ratusan karya ilustrasi editorial, artwork karakter, dan eksplorasi tekstur seni grafis kontemporer.',
   },
   {
-    period: '2009 — 2011',
-    role: 'Web Developer & Digital Artist',
-    org: 'Awal Perjalanan Kreatif',
-    desc: 'Membangun aplikasi web generasi awal sembari mengeksplorasi ilustrasi digital dan seni grafis editorial.',
+    period: '2016 — 2018',
+    role: 'Junior Graphic Designer',
+    org: 'Awal Eksplorasi Visual',
+    desc: 'Mempelajari seni tata letak cetak, cetak sablon merchandise, serta estetika visual kontras tinggi.',
+  },
+];
+
+const designTools = [
+  {
+    category: 'Desain Grafis & Vektor',
+    items: ['Adobe Illustrator', 'Figma', 'Vector Layout', 'Typography Tuning'],
+  },
+  {
+    category: 'Ilustrasi & Digital Painting',
+    items: ['Adobe Photoshop', 'Procreate', 'Custom Brushes', 'Paper Texture Blend'],
+  },
+  {
+    category: 'Produksi Merchandise & Cetak',
+    items: ['Die-Cut Vinyl Stickers', 'Enamel Pin Crafting', 'Screen Printing', 'Color Separation'],
   },
 ];
 ---
 
 <Base
-  title="About Us | Omeng Creations"
-  description="Rumah bagi asset visual berkualitas tinggi dan rekayasa perangkat lunak berdaya tahan tinggi."
+  title="About Us | Omeng Creations Graphic Design"
+  description="Rumah bagi aset visual berkualitas tinggi, ilustrasi berkarakter, dan karya desain grafis Omeng Creations."
 >
   <div class="about-page">
     <div class="about-container">
       <!-- Container Pink Khas Halaman About Asli -->
       <div class="project-container">
-        <!-- Section Header About Asli -->
+        <!-- Section Header About Box Putih Asli -->
         <div class="project-header-about">
           <div class="title-area-about">
+            <span class="about-tag-mono">[ ABOUT OMENG CREATIONS ]</span>
             <h2>About Us</h2>
           </div>
 
           <div class="about-content">
             <p class="description">
-              Rumah bagi aset visual berkualitas tinggi dan rekayasa perangkat lunak berkinerja tinggi. Kami fokus menciptakan ilustrasi, sistem desain, dan produk digital yang unik untuk membantu kreator serta bisnis mempercantik dan memperkuat ekosistem digital mereka.
+              Rumah bagi eksplorasi seni visual berkualitas tinggi. Omeng Creations lahir dari kecintaan mendalam pada desain grafis bertenaga, ilustrasi berkarakter tajam, dan estetika kontras tinggi yang tak terlupakan.
+            </p>
+            <p class="description sub-text">
+              Kami berfokus menciptakan ilustrasi orisinal, sistem identitas brand yang berkarakter, serta koleksi merchandise fisik yang membawa karya seni digital ke dalam kehidupan sehari-hari.
             </p>
 
             <!-- Mission & Vision Cards Asli -->
             <div class="mission-vision">
               <div class="mission-item">
+                <span class="item-tag">DISIPLIN 01</span>
                 <h3>Creative Project</h3>
-                <p>Menampilkan kurasi karya terbaik mulai dari identitas branding hingga digital painting dan editorial art berkarakter kuat.</p>
+                <p>Menampilkan kurasi karya terbaik mulai dari desain identitas brand, poster editorial, hingga seni digital ilustrasi bernarasi mendalam.</p>
               </div>
 
               <div class="mission-item">
-                <h3>Digital Assets</h3>
-                <p>Aset gambar dan komponen antarmuka siap pakai dengan lisensi komersial penuh untuk kebutuhan desain dan pengembangan webmu.</p>
+                <span class="item-tag">DISIPLIN 02</span>
+                <h3>Digital Assets &amp; Merch</h3>
+                <p>Aset visual siap pakai dengan lisensi komersial dan lini merchandise eksklusif: stiker vinyl waterproof, enamel pin, dan art prints.</p>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- 15 Tahun Perjalanan & Disiplin -->
+        <!-- Perjalanan Kreatif & Tools Desain Grafis -->
         <div class="story-container">
           <div class="story-header">
-            <h3>Dua Disiplin, Satu Visi: 15 Tahun Pengalaman</h3>
+            <h3>Alat &amp; Ekosistem Kreatif Kami</h3>
             <p>
-              Sebagai Art Director sekaligus Software Engineer, saya menolak kompromi antara keindahan visual dan performa kode. Setiap karya dirancang agar memikat mata sekaligus ringan, cepat, dan mudah diakses di segala perangkat.
+              Setiap karya digambar dan disempurnakan dengan standar visual terbaik, memadukan sentuhan organik gambar tangan dengan ketelitian presisi vektor modern.
             </p>
           </div>
 
-          <div class="timeline-list">
-            {timeline.map((item) => (
-              <div class="timeline-card">
-                <span class="timeline-year">{item.period}</span>
-                <div class="timeline-info">
-                  <h4>{item.role}</h4>
-                  <span class="timeline-org">{item.org}</span>
-                  <p>{item.desc}</p>
-                </div>
+          <!-- Grid Tools Desain Grafis -->
+          <div class="tools-grid">
+            {designTools.map((t) => (
+              <div class="tool-card">
+                <h4>{t.category}</h4>
+                <ul>
+                  {t.items.map((item) => (
+                    <li>✦ {item}</li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
 
+          <!-- Timeline Perjalanan Kreatif -->
+          <div class="timeline-section">
+            <h4 class="timeline-heading">Jejak Perjalanan Kreatif</h4>
+            <div class="timeline-list">
+              {creativeMilestones.map((item) => (
+                <div class="timeline-card">
+                  <span class="timeline-year">{item.period}</span>
+                  <div class="timeline-info">
+                    <h5>{item.role}</h5>
+                    <span class="timeline-org">{item.org}</span>
+                    <p>{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <div class="cv-download-bar">
-            <span>Perlu dokumen resume resmi?</span>
-            <a href="mailto:halo@omeng.dev?subject=Permintaan%20CV%20Omeng" class="btn-cv">
-              Hubungi untuk Salinan Resume (PDF) ↗
+            <span>Tertarik berkolaborasi untuk proyek ilustrasi atau branding?</span>
+            <a href="mailto:halo@omeng.dev?subject=Kolaborasi%20Desain%20Grafis%20Omeng" class="btn-cv">
+              Mari Berkolaborasi (Kirim Email) ↗
             </a>
           </div>
         </div>
@@ -113,7 +152,8 @@ const timeline = [
     background: var(--color-primary-pink);
     border-radius: var(--radius-xl);
     padding: clamp(28px, 4vw, 50px);
-    box-shadow: 0 20px 50px rgba(255, 192, 203, 0.15);
+    box-shadow: var(--shadow-pink-glow);
+    border: 1px solid rgba(255, 255, 255, 0.25);
   }
 
   /* Header Box Putih Asli */
@@ -122,7 +162,18 @@ const timeline = [
     padding: clamp(30px, 4vw, 50px);
     border-radius: var(--radius-lg);
     margin-bottom: 40px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--color-border-card);
+  }
+
+  .about-tag-mono {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+    margin-bottom: 6px;
   }
 
   .title-area-about h2 {
@@ -136,10 +187,16 @@ const timeline = [
 
   .about-content .description {
     font-size: 1.15rem;
-    color: #333333;
+    color: #222224;
     line-height: 1.7;
+    margin-bottom: 14px;
+    max-width: 840px;
+  }
+
+  .about-content .sub-text {
+    font-size: 1.05rem;
+    color: #55555c;
     margin-bottom: 36px;
-    max-width: 800px;
   }
 
   /* Mission & Vision Cards Asli */
@@ -150,17 +207,27 @@ const timeline = [
   }
 
   .mission-item {
-    background: rgba(0, 0, 0, 0.04);
+    background: #f7f7fa;
     padding: 28px;
     border-radius: var(--radius-md);
     border: 1px solid rgba(0, 0, 0, 0.06);
   }
 
+  .item-tag {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--color-muted-dark);
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+  }
+
   .mission-item h3 {
     font-family: var(--font-display);
-    font-size: 2rem;
+    font-size: 2.2rem;
     color: var(--color-accent);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     letter-spacing: 0.03em;
   }
 
@@ -173,7 +240,7 @@ const timeline = [
 
   /* Story & Timeline */
   .story-container {
-    background: #0d0d11;
+    background: #0c0c10;
     border-radius: var(--radius-lg);
     padding: clamp(30px, 4vw, 50px);
     color: #ffffff;
@@ -196,16 +263,64 @@ const timeline = [
     max-width: 750px;
   }
 
-  .timeline-list {
+  /* Tools Grid */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 44px;
+  }
+
+  .tool-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    padding: 22px;
+  }
+
+  .tool-card h4 {
+    font-size: 1.05rem;
+    color: var(--color-primary-pink);
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+
+  .tool-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 8px;
+  }
+
+  .tool-card li {
+    font-size: 0.9rem;
+    color: var(--color-muted);
+  }
+
+  /* Timeline */
+  .timeline-section {
     margin-bottom: 36px;
   }
 
+  .timeline-heading {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+    letter-spacing: 0.03em;
+  }
+
+  .timeline-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
   .timeline-card {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
     border-radius: var(--radius-md);
     padding: 20px 24px;
     display: grid;
@@ -221,7 +336,7 @@ const timeline = [
     letter-spacing: 0.04em;
   }
 
-  .timeline-info h4 {
+  .timeline-info h5 {
     font-size: 1.15rem;
     color: #ffffff;
     margin-bottom: 4px;
@@ -260,7 +375,7 @@ const timeline = [
   .btn-cv {
     background: var(--color-accent);
     color: #ffffff;
-    padding: 10px 22px;
+    padding: 12px 24px;
     border-radius: var(--radius-pill);
     font-weight: 600;
     font-size: 0.9rem;
@@ -274,7 +389,11 @@ const timeline = [
     transform: translateY(-2px);
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 850px) {
+    .tools-grid {
+      grid-template-columns: 1fr;
+    }
+
     .mission-vision {
       grid-template-columns: 1fr;
     }
