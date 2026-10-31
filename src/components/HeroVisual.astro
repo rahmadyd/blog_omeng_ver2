@@ -1,9 +1,9 @@
 ---
-// Hero Section Split 50/50 — Elevated Graphic Design Studio Aesthetic
+// Hero Section Split 50/50 — Clean & Lifted Layout
 ---
 
 <section class="hero-section" aria-labelledby="hero-heading">
-  <!-- Sisi Kiri: Teks & Filosofi Desain Grafis -->
+  <!-- Sisi Kiri: Teks & Filosofi Desain Grafis (Posisi Naik ke Atas Rapi) -->
   <div class="hero-content">
     <div class="studio-badge" aria-label="Omeng Creations Graphic Design Studio">
       <span class="badge-dot"></span>
@@ -38,14 +38,8 @@
     </div>
   </div>
 
-  <!-- Sisi Kanan: Visual Pink Ikonik dengan Putaran Badge & Maskot Interaktif -->
-  <div class="hero-visual" aria-label="Visual Interaktif Omeng Creations">
-    <!-- Studio Watermark Detail di Sudut Canvas -->
-    <div class="visual-corner-tag" aria-hidden="true">
-      <span>FIG. 01 — KINETIC LOGO</span>
-      <span>ED. 2025</span>
-    </div>
-
+  <!-- Sisi Kanan: Visual Pink Ikonik dengan Putaran Badge & Maskot Kucing Asli (Murni Animasi Flip & Spin) -->
+  <div class="hero-visual" aria-hidden="true">
     <div class="visual-wrapper">
       <!-- Badge Melingkar Berputar 360 Derajat -->
       <img
@@ -56,92 +50,37 @@
         height="460"
       />
 
-      <!-- Gelembung Dialog Reaktif Maskot (Speech Bubble) -->
-      <div class="cat-dialog-bubble" id="catBubble" aria-live="polite">
-        <span id="catBubbleText">Klik aku! 🐾</span>
-      </div>
-
-      <!-- Maskot Kucing Interaktif -->
-      <button class="cat-button" id="catBtn" aria-label="Sapa Maskot Kucing Omeng">
-        <img
-          src="/images/logo-omeng.png"
-          class="cat-logo"
-          id="catImg"
-          alt="Omeng Cat Mascot"
-          width="220"
-          height="220"
-        />
-      </button>
+      <!-- Maskot Kucing Asli (Animasi Flip Murni Tanpa Efek Klik) -->
+      <img
+        src="/images/logo-omeng.png"
+        class="cat-logo"
+        alt="Omeng Cat Mascot"
+        width="220"
+        height="220"
+      />
     </div>
-
-    <span class="visual-hint" aria-hidden="true">Sentuh atau klik kucing untuk berinteraksi ✨</span>
   </div>
 </section>
-
-<script>
-  // Script Interaktif Maskot Kucing
-  const catBtn = document.getElementById('catBtn');
-  const catBubble = document.getElementById('catBubble');
-  const catBubbleText = document.getElementById('catBubbleText');
-  const catImg = document.getElementById('catImg');
-
-  const quotes = [
-    "Meow! 🐾 Siap bikin karya visual berani?",
-    "Desain grafis dengan karakter tajam! ⚡",
-    "Seni kontras tinggi, ilustrasi berjiwa! 🎨",
-    "Merchandise, branding, dan digital art! ✨",
-    "Bikin brand kamu tampil beda dari yang lain!",
-    "Ada proyek ilustrasi? Mari kita wujudkan! ✉️",
-    "Purrr... 🐱 Suka stiker atau merchandise Omeng?",
-  ];
-
-  let quoteIndex = 0;
-  let bubbleTimeout: any;
-
-  const triggerCatReaction = () => {
-    if (!catBubble || !catBubbleText || !catImg) return;
-
-    quoteIndex = (quoteIndex + 1) % quotes.length;
-    catBubbleText.textContent = quotes[quoteIndex];
-
-    catBubble.classList.add('visible');
-    catImg.classList.add('bounce');
-
-    setTimeout(() => {
-      catImg.classList.remove('bounce');
-    }, 400);
-
-    clearTimeout(bubbleTimeout);
-    bubbleTimeout = setTimeout(() => {
-      catBubble.classList.remove('visible');
-    }, 3500);
-  };
-
-  if (catBtn) {
-    catBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      triggerCatReaction();
-    });
-  }
-</script>
 
 <style>
   .hero-section {
     display: flex;
-    min-height: calc(88vh - var(--header-height));
+    min-height: calc(82vh - var(--header-height));
     width: 100%;
     margin: 0;
     background: var(--color-deep-black);
     position: relative;
     border-bottom: 1px solid rgba(255, 192, 203, 0.2);
+    align-items: stretch;
   }
 
+  /* Konten Hero Dinaikkan ke Atas (Tidak Menggantung Kosong di Atas) */
   .hero-content {
     width: 50%;
-    padding: clamp(40px, 6vw, 96px);
+    padding: clamp(28px, 4.5vh, 48px) clamp(28px, 5vw, 84px) clamp(40px, 6vh, 64px);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
     z-index: 2;
   }
@@ -150,8 +89,8 @@
   .studio-badge {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    font-size: 0.8rem;
+    gap: 9px;
+    font-size: 0.78rem;
     font-weight: 600;
     font-family: var(--font-mono);
     letter-spacing: 0.1em;
@@ -160,7 +99,7 @@
     border: 1px solid rgba(255, 192, 203, 0.22);
     padding: 6px 14px;
     border-radius: var(--radius-pill);
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
 
   .badge-dot {
@@ -177,7 +116,7 @@
     color: #ffffff;
     line-height: 0.92;
     letter-spacing: 0.02em;
-    margin-bottom: 22px;
+    margin-bottom: 20px;
   }
 
   .brand-highlight {
@@ -188,11 +127,11 @@
 
   .hero-desc {
     font-family: var(--font-body);
-    font-size: clamp(1.05rem, 1.8vw, 1.2rem);
+    font-size: clamp(1.02rem, 1.7vw, 1.18rem);
     color: rgba(255, 255, 255, 0.82);
     max-width: 540px;
-    line-height: 1.7;
-    margin-bottom: 28px;
+    line-height: 1.68;
+    margin-bottom: 26px;
   }
 
   /* Discipline Tags */
@@ -200,13 +139,13 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-bottom: 36px;
+    margin-bottom: 34px;
   }
 
   .disc-tag {
     font-size: 0.8rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.72);
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 4px 12px;
@@ -224,7 +163,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 14px 28px;
+    padding: 13px 28px;
     border-radius: var(--radius-pill);
     font-weight: 600;
     font-size: 0.95rem;
@@ -275,38 +214,22 @@
     width: 50%;
     background-color: var(--color-primary-pink);
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     position: relative;
     overflow: hidden;
   }
 
-  /* Corner Technical Stamp */
-  .visual-corner-tag {
-    position: absolute;
-    top: 24px;
-    right: 28px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: rgba(0, 0, 0, 0.45);
-    letter-spacing: 0.08em;
-    pointer-events: none;
-  }
-
   .visual-wrapper {
     position: relative;
-    width: min(80%, 460px);
+    width: min(82%, 460px);
     aspect-ratio: 1 / 1;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
+  /* Animasi Putar Murni Badge */
   .rotating-text {
     position: absolute;
     width: 100%;
@@ -318,71 +241,15 @@
     pointer-events: none;
   }
 
-  /* Tombol Maskot Kucing */
-  .cat-button {
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    position: relative;
-    z-index: 3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s ease;
-  }
-
-  .cat-button:focus-visible {
-    outline: 3px solid #000000;
-    border-radius: 50%;
-  }
-
+  /* Animasi Flip Kucing Murni */
   .cat-logo {
+    position: absolute;
     width: clamp(140px, 18vw, 220px);
     height: auto;
+    z-index: 2;
     animation: flip-cat 8s ease-in-out infinite;
     filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.28));
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-
-  .cat-logo.bounce {
-    animation: none;
-    transform: scale(1.18) rotate(5deg);
-  }
-
-  /* Gelembung Dialog Maskot */
-  .cat-dialog-bubble {
-    position: absolute;
-    top: 6%;
-    background: #000000;
-    color: #ffffff;
-    padding: 10px 18px;
-    border-radius: 20px;
-    border-bottom-left-radius: 4px;
-    font-size: 0.88rem;
-    font-weight: 600;
-    z-index: 10;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    border: 2px solid var(--color-accent);
-    opacity: 0;
-    transform: translateY(10px) scale(0.9);
     pointer-events: none;
-    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    max-width: 240px;
-    text-align: center;
-  }
-
-  .cat-dialog-bubble.visible {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-
-  .visual-hint {
-    margin-top: 18px;
-    font-size: 0.8rem;
-    color: rgba(0, 0, 0, 0.65);
-    font-weight: 500;
-    z-index: 2;
   }
 
   @media (max-width: 900px) {
@@ -393,12 +260,12 @@
 
     .hero-content {
       width: 100%;
-      padding: 50px 24px;
+      padding: 36px 20px 48px;
     }
 
     .hero-visual {
       width: 100%;
-      min-height: 400px;
+      min-height: 380px;
       padding: 40px 20px;
     }
 
