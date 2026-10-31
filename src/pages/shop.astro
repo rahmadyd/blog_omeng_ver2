@@ -18,27 +18,85 @@ const shopItems = semuaKarya.filter((item) => item.data.category === 'shop');
         <div class="shop-header">
           <div class="title-area">
             <h1>Omeng's Shop</h1>
-            <p>Koleksi produk digital dan merchandise eksklusif siap pesan.</p>
+            <p>Koleksi produk digital dan merchandise eksklusif siap pesan langsung via WhatsApp.</p>
+          </div>
+
+          <!-- Filter Tabs Instan -->
+          <div class="filter-tabs" role="tablist" aria-label="Filter Kategori Toko">
+            <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true">
+              Semua <span class="tab-count">({shopItems.length})</span>
+            </button>
+            <button class="filter-tab" data-filter="merchandise" role="tab" aria-selected="false">
+              Merchandise
+            </button>
+            <button class="filter-tab" data-filter="digital art" role="tab" aria-selected="false">
+              Digital Art &amp; Aset
+            </button>
           </div>
         </div>
 
         <!-- Grid Kartu Toko Asli (Putih & Beresolusi Tinggi) -->
-        <div class="cards-grid">
-          {shopItems.map((s) => (
-            <ShopCard
-              title={s.data.title}
-              summary={s.data.summary}
-              image={s.data.image}
-              badges={s.data.badges}
-              price={s.data.price}
-              slug={s.slug || s.id}
-              link={s.data.link}
-            />
-          ))}
+        <div class="cards-grid" id="shopGrid">
+          {shopItems.map((s) => {
+            const categories = [s.data.kind.toLowerCase(), ...s.data.badges.map(b => b.toLowerCase())].join(' ');
+            return (
+              <div class="shop-item" data-categories={categories}>
+                <ShopCard
+                  title={s.data.title}
+                  summary={s.data.summary}
+                  image={s.data.image}
+                  badges={s.data.badges}
+                  price={s.data.price}
+                  slug={s.slug || s.id}
+                  link={s.data.link}
+                />
+              </div>
+            );
+          })}
+        </div>
+
+        <!-- Empty State jika filter kosong -->
+        <div id="filterEmptyShop" class="filter-empty" style="display: none;">
+          <p>Belum ada produk dalam kategori ini.</p>
         </div>
       </div>
     </section>
   </div>
+
+  <script>
+    // Script Filter Tab Instan Tanpa Reload
+    const tabs = document.querySelectorAll('.filter-tab');
+    const items = document.querySelectorAll('.shop-item');
+    const emptyState = document.getElementById('filterEmptyShop');
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        tabs.forEach((t) => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+
+        const filter = tab.getAttribute('data-filter') || 'all';
+        let visibleCount = 0;
+
+        items.forEach((item) => {
+          const categories = item.getAttribute('data-categories') || '';
+          if (filter === 'all' || categories.includes(filter)) {
+            (item as HTMLElement).style.display = '';
+            visibleCount++;
+          } else {
+            (item as HTMLElement).style.display = 'none';
+          }
+        });
+
+        if (emptyState) {
+          emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+      });
+    });
+  </script>
 </Base>
 
 <style>
@@ -62,6 +120,9 @@ const shopItems = semuaKarya.filter((item) => item.data.category === 'shop');
 
   .shop-header {
     margin-bottom: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
   }
 
   .shop-header h1 {
@@ -79,10 +140,59 @@ const shopItems = semuaKarya.filter((item) => item.data.category === 'shop');
     margin: 0;
   }
 
+  /* Filter Tabs */
+  .filter-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .filter-tab {
+    background: rgba(255, 255, 255, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: #000000;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 8px 18px;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .filter-tab:hover {
+    background: rgba(255, 255, 255, 0.7);
+    transform: translateY(-2px);
+  }
+
+  .filter-tab.active {
+    background: #000000;
+    color: #ffffff;
+    border-color: #000000;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .tab-count {
+    font-size: 0.8rem;
+    opacity: 0.8;
+  }
+
   .cards-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
+  }
+
+  .shop-item {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .filter-empty {
+    text-align: center;
+    padding: 50px 20px;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 500;
   }
 
   @media (max-width: 1100px) {

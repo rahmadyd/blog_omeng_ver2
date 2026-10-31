@@ -22,24 +22,86 @@ const projects = semuaKarya
             <h1>My Project Gallery</h1>
             <p>Koleksi karya dan proyek kreatif kami yang memadukan estetika visual dan presisi teknis.</p>
           </div>
+
+          <!-- Instant Filter Tabs UI/UX Upgrade -->
+          <div class="filter-tabs" role="tablist" aria-label="Filter Kategori Proyek">
+            <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true">
+              Semua <span class="tab-count">({projects.length})</span>
+            </button>
+            <button class="filter-tab" data-filter="design" role="tab" aria-selected="false">
+              Design &amp; Visual
+            </button>
+            <button class="filter-tab" data-filter="engineering" role="tab" aria-selected="false">
+              Software Engineering
+            </button>
+            <button class="filter-tab" data-filter="branding" role="tab" aria-selected="false">
+              Branding
+            </button>
+          </div>
         </div>
 
         <!-- Grid Kartu Proyek Asli (Putih & Beresolusi Tinggi) -->
-        <div class="cards-grid">
-          {projects.map((p) => (
-            <ProjectCard
-              title={p.data.title}
-              summary={p.data.summary}
-              image={p.data.image}
-              badges={p.data.badges}
-              year={p.data.year}
-              slug={p.slug || p.id}
-            />
-          ))}
+        <div class="cards-grid" id="projectGrid">
+          {projects.map((p) => {
+            const categories = [p.data.kind.toLowerCase(), ...p.data.badges.map(b => b.toLowerCase())].join(' ');
+            return (
+              <div class="project-item" data-categories={categories}>
+                <ProjectCard
+                  title={p.data.title}
+                  summary={p.data.summary}
+                  image={p.data.image}
+                  badges={p.data.badges}
+                  year={p.data.year}
+                  slug={p.slug || p.id}
+                />
+              </div>
+            );
+          })}
+        </div>
+
+        <!-- Empty State jika filter kosong -->
+        <div id="filterEmpty" class="filter-empty" style="display: none;">
+          <p>Belum ada proyek dalam kategori ini.</p>
         </div>
       </div>
     </section>
   </div>
+
+  <script>
+    // Script Filter Tab Instan Tanpa Reload
+    const tabs = document.querySelectorAll('.filter-tab');
+    const items = document.querySelectorAll('.project-item');
+    const emptyState = document.getElementById('filterEmpty');
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        // Update active class
+        tabs.forEach((t) => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+
+        const filter = tab.getAttribute('data-filter') || 'all';
+        let visibleCount = 0;
+
+        items.forEach((item) => {
+          const categories = item.getAttribute('data-categories') || '';
+          if (filter === 'all' || categories.includes(filter)) {
+            (item as HTMLElement).style.display = '';
+            visibleCount++;
+          } else {
+            (item as HTMLElement).style.display = 'none';
+          }
+        });
+
+        if (emptyState) {
+          emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+      });
+    });
+  </script>
 </Base>
 
 <style>
@@ -63,6 +125,9 @@ const projects = semuaKarya
 
   .gallery-header {
     margin-bottom: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
   }
 
   .gallery-header h1 {
@@ -80,10 +145,59 @@ const projects = semuaKarya
     margin: 0;
   }
 
+  /* Filter Tabs UI */
+  .filter-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .filter-tab {
+    background: rgba(255, 255, 255, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: #000000;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 8px 18px;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .filter-tab:hover {
+    background: rgba(255, 255, 255, 0.7);
+    transform: translateY(-2px);
+  }
+
+  .filter-tab.active {
+    background: #000000;
+    color: #ffffff;
+    border-color: #000000;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .tab-count {
+    font-size: 0.8rem;
+    opacity: 0.8;
+  }
+
   .cards-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
+  }
+
+  .project-item {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .filter-empty {
+    text-align: center;
+    padding: 50px 20px;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 500;
   }
 
   @media (max-width: 1100px) {

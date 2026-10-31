@@ -91,7 +91,7 @@ const waLink = `https://wa.me/${waNumber}?text=${waMsg}`;
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.044-1.014-.078-.242-.077-.552-.19-.942-.358-1.656-.714-2.733-2.38-2.816-2.49-.083-.11-.678-.901-.678-1.718 0-.817.428-1.218.58-1.383.153-.165.334-.206.446-.206.111 0 .223.001.32.006.102.005.239-.039.373.285.14.339.479 1.168.521 1.254.043.085.072.186.014.3-.058.115-.088.187-.175.289-.088.102-.185.228-.264.306-.089.088-.182.184-.078.362.103.179.46 0.758.988 1.228.679.605 1.251.792 1.43 0.881.179.089.284.075.39-.047.105-.122.45-.525.57-.704.12-.179.24-.15.4-.089.161.061 1.02.481 1.196.568.175.088.293.131.336.205.044.074.044.428-.1 0.833z"/>
                 </svg>
-                Pesan via WhatsApp
+                Pesan Sekarang via WhatsApp
               </a>
             </div>
           )}
@@ -109,6 +109,21 @@ const waLink = `https://wa.me/${waNumber}?text=${waMsg}`;
         </div>
       </div>
     </div>
+
+    <!-- Mobile Sticky WhatsApp Bottom Bar (Tampil hanya di HP untuk Shop Item) -->
+    {isShopItem && (
+      <div class="mobile-sticky-order" aria-label="Aksi Pemesanan Cepat">
+        <div class="sticky-order-inner">
+          <div class="sticky-price-info">
+            <span class="sticky-price-label">Total</span>
+            <span class="sticky-price-val">{price}</span>
+          </div>
+          <a href={waLink} target="_blank" rel="noopener noreferrer" class="sticky-wa-btn">
+            Order via WhatsApp ↗
+          </a>
+        </div>
+      </div>
+    )}
   </article>
 </Base>
 
@@ -116,6 +131,7 @@ const waLink = `https://wa.me/${waNumber}?text=${waMsg}`;
   .detail-hero {
     padding: 40px 24px 80px;
     background: var(--color-primary-black);
+    position: relative;
   }
 
   .detail-wrapper {
@@ -316,10 +332,67 @@ const waLink = `https://wa.me/${waNumber}?text=${waMsg}`;
     gap: 10px;
   }
 
+  /* Mobile Sticky Order Bar */
+  .mobile-sticky-order {
+    display: none;
+  }
+
   @media (max-width: 968px) {
     .detail-container {
       grid-template-columns: 1fr;
       gap: 32px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .mobile-sticky-order {
+      display: block;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(10, 10, 14, 0.95);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(255, 192, 203, 0.25);
+      padding: 12px 20px;
+      z-index: 1000;
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.7);
+    }
+
+    .sticky-order-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .sticky-price-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sticky-price-label {
+      font-size: 0.72rem;
+      color: var(--color-muted);
+      text-transform: uppercase;
+    }
+
+    .sticky-price-val {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .sticky-wa-btn {
+      background: #25D366;
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: var(--radius-pill);
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
     }
   }
 </style>

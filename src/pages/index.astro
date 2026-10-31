@@ -22,7 +22,7 @@ const shopItems = semuaKarya
 ---
 
 <Base>
-  <!-- 1. HERO SECTION SPLIT 50/50 ASLI DENGAN ROTATING BADGE & MASKOT KUCING -->
+  <!-- 1. HERO SECTION SPLIT 50/50 ASLI DENGAN ROTATING BADGE & MASKOT KUCING INTERAKTIF -->
   <HeroVisual />
 
   <!-- 2. MARQUEE BERJALAN KANAN ASLI -->
@@ -98,7 +98,7 @@ const shopItems = semuaKarya
     </div>
   </section>
 
-  <!-- 6. AJAKAN KOLABORASI / KONTAK BERDAYA TARIK TINGGI -->
+  <!-- 6. AJAKAN KOLABORASI / KONTAK DENGAN 1-CLICK COPY EMAIL UX -->
   <section id="kontak" class="contact-section">
     <div class="contact-container">
       <div class="contact-card">
@@ -107,9 +107,18 @@ const shopItems = semuaKarya
         <p>
           Terbuka untuk kolaborasi pengarahan seni visual (art direction), perancangan sistem identitas brand, hingga arsitektur rekayasa frontend performa tinggi.
         </p>
+
+        <!-- Email Box dengan 1-Click Copy UI -->
+        <div class="email-copy-box">
+          <span class="email-address" id="emailText">halo@omeng.dev</span>
+          <button class="copy-btn" id="copyEmailBtn" aria-label="Salin alamat email">
+            <span id="copyBtnText">Salin Email 📋</span>
+          </button>
+        </div>
+
         <div class="contact-actions">
           <a href="mailto:halo@omeng.dev" class="btn btn-primary contact-cta">
-            Kirim Email ke halo@omeng.dev ↗
+            Buka di Email App ↗
           </a>
           <a href="https://wa.me/6285777145179" target="_blank" rel="noopener noreferrer" class="btn btn-wa">
             WhatsApp Resmi ↗
@@ -118,6 +127,39 @@ const shopItems = semuaKarya
       </div>
     </div>
   </section>
+
+  <!-- Toast Notification untuk Copy Email -->
+  <div id="toastNotification" class="toast-toast" role="status" aria-live="polite">
+    Email tersalin ke clipboard! Siap kirim pesan ✉️
+  </div>
+
+  <script>
+    // 1-Click Copy Email Logic
+    const copyBtn = document.getElementById('copyEmailBtn');
+    const copyBtnText = document.getElementById('copyBtnText');
+    const toast = document.getElementById('toastNotification');
+    const emailToCopy = 'halo@omeng.dev';
+
+    if (copyBtn && copyBtnText && toast) {
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(emailToCopy);
+          copyBtnText.textContent = 'Tersalin! ✓';
+          toast.classList.add('show');
+
+          setTimeout(() => {
+            copyBtnText.textContent = 'Salin Email 📋';
+          }, 2500);
+
+          setTimeout(() => {
+            toast.classList.remove('show');
+          }, 3200);
+        } catch (err) {
+          console.error('Failed to copy', err);
+        }
+      });
+    }
+  </script>
 </Base>
 
 <style>
@@ -245,7 +287,46 @@ const shopItems = semuaKarya
     color: var(--color-muted);
     max-width: 600px;
     line-height: 1.6;
-    margin-bottom: 36px;
+    margin-bottom: 28px;
+  }
+
+  /* Email Box dengan Tombol Salin Instan */
+  .email-copy-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 192, 203, 0.25);
+    padding: 8px 10px 8px 22px;
+    border-radius: var(--radius-pill);
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .email-address {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: 0.04em;
+    color: var(--color-primary-pink);
+  }
+
+  .copy-btn {
+    background: var(--color-accent);
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: var(--radius-pill);
+    font-weight: 600;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .copy-btn:hover {
+    background: #ffffff;
+    color: #000000;
+    transform: scale(1.05);
   }
 
   .contact-actions {
@@ -291,6 +372,30 @@ const shopItems = semuaKarya
     background: #1ebc59;
     color: #ffffff;
     transform: translateY(-3px);
+  }
+
+  /* Toast Notifikasi */
+  .toast-toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: #25d366;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 12px 24px;
+    border-radius: var(--radius-pill);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    z-index: 3000;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .toast-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
   }
 
   @media (max-width: 1100px) {
